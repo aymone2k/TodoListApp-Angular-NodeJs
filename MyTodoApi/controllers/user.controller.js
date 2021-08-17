@@ -1,56 +1,66 @@
 const User = require('../models/user.model');
+const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 //revoir pour rajouter image avatar
 module.exports={
 //SignIn 
-    signIn:(req, res, next)=>{
-        User.findOne({email: req.body.email})
-        .then(user=>{
-            if(!user){
+    signIn: async (req, res, next)=>{
+        try{
+            const user = await User.findOne({email: req.body.email})
+            if(user === null){
                 return res.status(401).json({message: `email ou mot de passe incorrect!`})
             }
-            bcrypt.compare(req.body.password, user.password)
-            .then((valid)=>{
-                if(!valid){
-                    return res.status(401).json({message: `email ou mot de passe incorrect!`})
-                }
-                res.status(200).json({
-                    userId: user._id,
-                    token: jwt.sign({userId: user._id}, process.env.JWT_TOKEN_SECRET, {expiresIn:'24h'})
-                })
-             })
-            .catch((err)=>res.status(500).json({err}));
-        })
-        .catch((err)=>res.status(500).json({err}));
-    },
 
+            const isValidPassword = User.validatePassword(req.body.password, user.password)
+            if(!isValidPassword){
+                return res.status(401).json({message: `email ou mot de passe incorrect!`})
+            }
+
+            const accessToken = jwt.sign({user_id: user._id,email: user.email}, process.env.JWT_TOKEN_SECRET)
+            res.status(200).send({token: accessToken})
+
+        } catch (err){ 
+            res.status(500).json({message: err.message})
+        }},
+        
+      
 //SignUp
-    signUp:(req, res, next)=>{
-        bcrypt.hash(req.body.password, 10)
-        .then((hash)=>{
-            const user = new User({
-                email:req.body.email,
-                password:hash,
-                name:req.body.name,
-            })
-            user.save()
-            .then((user)=>res.status(201).json({message: 'Votre compte a été crée!'}))
+    signUp: async (req, res, next)=>{
+     try{
+         const userExist = await User.exists({email: req.body.email});
+         if(userExist){
+             return res.status(400).json({message: 'Cet ulilisateur existe déjà!'})
+             }
+             
+         const user = new User({
+            ...req.body ,
+            password: User.generatePasswordHash(req.body.password),
+          
         })
-        .catch((err)=> res.status(500).json({err}));
+ 
+       await user.save();
+       res.status(201).json({message: 'Votre compte a été crée!'});
+            
+        }
+        catch(err){res.status(500).json({message: err.message})};
     },
 
 //UpdateUser
   //penser à la modification  de l'image avatar en database
-    updateUser:(req, res, next)=>{
-        if(!req.user){
+    updateUser : (req, res, next)=>{
+        //voir si utile ici car meme fonctionnalité que l'auth
+        const userLog = req.params.id
+        if(!userLog){
+            res.status(400).json({message: "veuillezrr vous connecter pour modifier votre compte"})
+        }
+        if(userLog != req.body.id){
             res.status(400).json({message: "veuillez vous connecter pour modifier votre compte"})
         }
-        if(req.user._id != req.body.userId){
-            res.status(400).json({message: "veuillez vous connecter pour modifier votre compte"})
-        }
-        User.findOne({_id: req.body.userId})
+
+        User.findOne({_id: req.body.id})
         .then((user)=>{
             const oldEmail = user.email
             user.name = req.body.name ? req.body.name : user.name;

@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
 //SignIn
-router.post('/signIn', userController.signIn)
+router.get('/signin', userController.signIn)
 //SignUp
-router.post('/signUp', userController.signUp)
+router.post('/signup', userController.signUp)
 //UpdateUser
+router.put('/updateuser/:id', userController.updateUser)
 
 module.exports = router;

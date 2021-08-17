@@ -4,11 +4,12 @@ const categoryTodoController = require('../controllers/categoryTodo.controller')
 
 //get categoryTodoList
 router.get('/', categoryTodoController.categoryTodoList);
-//get categoryTodoList par user
-router.get('/:author', categoryTodoController.categoryTodoListAuthor)
+//get categoryTodo
+router.get('/:id', categoryTodoController.getCategoryTodo);
 //create categoryTodo
-router.post('/', categoryTodoController.addCategoryTodo)
-//delete categoryTodo
-router.delete('/:id', categoryTodoController.deleteCategoryTodo)
+router.post('/', categoryTodoController.addCategoryTodo);
+//update categoryTodo
+router.put('/:id', categoryTodoController.updateCategoryTodo);
+
 
 module.exports = router;

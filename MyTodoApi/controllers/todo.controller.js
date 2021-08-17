@@ -1,4 +1,5 @@
-const Todo = require('../models/todo.model')
+const Todo = require('../models/todo.model');
+const mongoose = require('mongoose');
 
 module.exports={
 //get todoList 
@@ -7,12 +8,7 @@ module.exports={
         .then((todos)=>{res.status(200).json(todos)})
         .catch((err)=>{res.status(404).json(err.message)})
     },
-//get todoList for one user
-todoListAuthor:(req, res, next)=>{
-    Todo.find()
-    .then((todos)=>{res.status(200).json(todos)})
-    .catch((err)=>{res.status(404).json(err.message)})
-},
+
 //create todo
     addTodo:(req, res, next)=>{
         const todoAdd = new Todo({
@@ -29,24 +25,23 @@ todoListAuthor:(req, res, next)=>{
         const idTodo = req.params.id;
         Todo.findOne({_id: idTodo})
         .then((todo)=>{res.status(200).json(todo)})
-        .catch((err)=>{res.statut(404).json(err.message)}) 
+        .catch((err)=>{res.status(400).json(err.message)}) 
     },
+
 //update todo
     updateTodo:(req, res, next)=>{
         const idTodo =  req.params.id;
-        const statusTodo = req.body.todoStatus;
+        
         if (!mongoose.Types.ObjectId.isValid(idTodo)) return res.status(404).send(`nous n'avont pas trouvé la tache N°: ${idTodo}`);
         
-        Todo.updateOne({_id: idTodo, author: req.user._id, todoStatus: statusTodo}, (err, todo)=>{
+        Todo.updateOne({_id: idTodo},{...req.body, _id: idTodo}, (err, todo)=>{
            
             if(err){
                 return res.status(500).json({message: err.message})
             }
-            return res.status(200).json({message: 'Tache modifiée'})
+            return res.status(200).json({message: `la tache ${todo.todoName} a été modifiée!`})
         })
-        // à corriger
-
-    },
+      },
 
 //delete todo
     deleteTodo:(req, res, next)=>{
@@ -54,7 +49,7 @@ todoListAuthor:(req, res, next)=>{
         if (!mongoose.Types.ObjectId.isValid(idTodo)) return res.status(404).send(`nous n'avont pas trouvé la tache N°: ${idTodo}`);
       
         Todo.findByIdAndRemove(idTodo)
-        .then((todo) =>{res.status(200).json({message: `la tache ${todo} a été supprimée!`})} )
+        .then((todo) =>{res.status(200).json({message: `la tache ${todo.todoName} a été supprimée!`})} )
         .catch((err) =>{res.status(500).json({message: err.message})})
     },
 

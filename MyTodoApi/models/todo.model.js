@@ -5,7 +5,6 @@ const todoSchema = mongoose.Schema({
     todoName: {type: String, required:true},
     todoStatus: {type: Boolean, default:false},
     todoDescription:  {type: String, required:true},
-    todoImage: String,
     category:{type: mongoose.Schema.Types.ObjectId, ref: 'CategoryTodo'},
     author:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }); 

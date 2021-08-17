@@ -12,39 +12,48 @@ module.exports={
 
 //get categoryTodo
 //retourne une categorie afin qu'on puisse la modifier ou la supprimer
-
-
-//get categoryTodoList pour un user spécifique
-categoryTodoListAuthor:(req, res, next)=>{
-    idAuthor = req.params.author
-    CategoryTodo.find({author: idAuthor})
-    .then((categories)=>{res.status(200).json(categories)})
-    .catch((err)=>{res.status(400).json({message: err.message})})
+    getCategoryTodo:(req, res, next)=>{
+        const idCatg = req.params.id;
+        CategoryTodo.findOne({_id: idCatg})
+        .then((category)=>{res.status(200).send(category)})
+        .catch((err)=>{res.status(400).json({message: err.message})})
     },
 
 //create categoryTodo
-    addCategoryTodo:(req, res, next)=>{
+    addCategoryTodo: async(req, res, next)=>{
+        try{
+            const categoryExist = await CategoryTodo.exists({categoryName: req.body.categoryName})
+        if(categoryExist){
+            return res.status(400).json({message: 'Impossible de créer une categorie qui existe déjà!'})
+        }
         const categoryAdd = new CategoryTodo({
-            categoryName: req.body.categoryName,
-            categoryColor: req.body.categoryColor, 
+            ...req.body, 
             author: req.user,
-            createdAt: Date.now(),
-        });
+            });
         categoryAdd.save()
         .then((catg)=>{res.status(201).json({message:`la categorie ${catg.categoryName} a été crée` })})
         .catch((err)=>{res.status(400).json({message: err.message})})
-    },
+    }
+    catch(err){res.status(500).json({message: err.message})};
+},
 
 //update categoryTodo
+//ps on ne pourra pas supprimer les catégories car rattachées à une tache, cependant on peut modifier une categorie vu que l'id de la ctg est conservé
+    updateCategoryTodo:(req, res, next)=>{
+        const idCatg = req.params.id;
 
-//delete categoryTodo
-// penser à rendre impossible la suppression d'une catégorie si elle est ratachée à une tache
-    deleteCategoryTodo:(req, res, next)=>{
-        const id = req.params.id;
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`nous n'avont pas trouvé la tache N°: ${id}`);
-        CategoryTodo.findByIdAndRemove(id)
-        .then((catg)=>{res.status(200).json({message: `la categorie ${catg.categoryName} a été supprimée`})})
-        .catch((err)=>{res.status(400).json({message: err.message})})
-    }
+        if (!mongoose.Types.ObjectId.isValid(idCatg)) return res.status(404).send(`nous n'avont pas trouvé la tache N°: ${idCatg}`);
+        
+        CategoryTodo.updateOne({_id: idCatg},{...req.body, _id: idCatg}, (err, catg)=>{
+           
+            if(err){
+                return res.status(500).json({message: err.message})
+            }
+            return res.status(200).json({message: `la tache ${catg.categoryName} a été modifiée!`})
+        })
+
+    },
+
+
 
 }
