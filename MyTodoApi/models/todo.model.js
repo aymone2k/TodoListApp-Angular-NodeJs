@@ -8,6 +8,6 @@ const todoSchema = mongoose.Schema({
     todoImage: String,
     category:{type: mongoose.Schema.Types.ObjectId, ref: 'CategoryTodo'},
     author:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-});
+}); 
 
 module.exports = mongoose.model('Todo', todoSchema)

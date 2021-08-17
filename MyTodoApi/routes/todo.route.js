@@ -5,7 +5,9 @@ const todoController = require('../controllers/todo.controller')
 
 
 //get todoList
-router.get('/', todoController.todoList)
+router.get('/', todoController.todoList);
+//get categoryTodoList
+router.get('/:author', todoController.todoListAuthor)
 //create todo
 router.post('/', todoController.addTodo)
 //read todo
@@ -14,3 +16,5 @@ router.get('/:id', todoController.getOneTodo)
 router.put('/:id', todoController.updateTodo)
 //delete todo
 router.delete('/id', todoController.deleteTodo)
+
+module.exports = router; 

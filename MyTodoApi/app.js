@@ -1,5 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 require('./middleware/dataBase').config()
 
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 
 
 //app.use('/api/user', userRoutes)
-//app.use('/api/todo', todoRoutes)
+app.use('/api/todo', todoRoutes)
 app.use('/api/categoryTodo', categoryTodoRoutes)
 
 module.exports = app;
