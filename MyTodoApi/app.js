@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 require('./middleware/dataBase').config()
@@ -12,7 +14,9 @@ const categoryTodoRoutes = require('./routes/categoryTodo.route');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
