@@ -1,4 +1,4 @@
-# création d'une application todoList:
+ # création d'une application todoList:
 =====================================
 petite application todoList en Angular et NodeJs, 
 # coté front: 
@@ -11,26 +11,26 @@ petite application todoList en Angular et NodeJs,
                 - home (Présentation + propose de se connecter ou creer un compte)
                 - todoModal(affiche le todo selectionné dans un modal avec un btn modifier)
                 - not-found
-        - user:
+        - user:(utilisera pour les forms la methode reactive)
                 - signIn
                 - signup
                 - editProfil(affiche les infos du profil)
                 - reset password                 
-        - todoList: 
-                - todoApp (affiche un input de saisie de tache +la liste des todos )
-                - AddTodo
-                - todoList
-                - EditTodo(update et delete)
+        - todoList: (utilisera pour les forms la methode reactive)
+                - todoList (affiche un input de saisie de tache +la liste des todos )
+                - addTodo
+                - todos
+                - editTodo(update et delete)
                 - todoDetail(affiche toutes les infos du todo + les btn CRUD)
-        - categoryTodo:
-                - categoryTodo
-                - AddCategory
-                - EditCategory(update et delete) 
-                - CategoryList       
+        - categories: (utilisera pour les forms la methode template)
+                - categories
+                - addCategory
+                - editCategory(update et delete) 
+                - categoryList       
 - services:
-        - Auth.service
-        - Todo.service
-        - Category.service
+        - auth
+        - todo
+        - category
 
 - models: 
         - User.model

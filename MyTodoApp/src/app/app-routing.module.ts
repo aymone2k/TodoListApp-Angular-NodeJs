@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddCategoryComponent } from './components/categories/add-category/add-category.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { EditCategoryComponent } from './components/categories/edit-category/edit-category.component';
-import { AddTodoComponent } from './components/todolist/add-todo/add-todo.component';
+import { ListCategoryComponent } from './components/categories/list-category/list-category.component';
+
 import { DetailTodoComponent } from './components/todolist/detail-todo/detail-todo.component';
 import { EditTodoComponent } from './components/todolist/edit-todo/edit-todo.component';
 import { TodolistComponent } from './components/todolist/todolist.component';

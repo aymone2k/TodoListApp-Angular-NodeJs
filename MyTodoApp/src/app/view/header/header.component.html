@@ -6,43 +6,40 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
+        <li routerLinkActive="active" class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="">Home</a>
         </li>
      <!--    affiche si déconnecté -->
-        <li class="nav-item">
+        <li routerLinkActive="active" class="nav-item">
           <a class="nav-link" routerLink="signin">Me connecter</a>
         </li>
-        <li class="nav-item">
+        <li routerLinkActive="active" class="nav-item">
           <a class="nav-link" routerLink="signup">Créer mon compte</a>
         </li>
 
 <!--    affiche si connecté -->
 
 
-          <li class="nav-item">
+          <li routerLinkActive="active" class="nav-item">
             <h6>affiche le nom de l'user</h6>
+            {{welcome}}
           </li>
-          <li class="nav-item">
+          <li routerLinkActive="active" class="nav-item">
             <a class="nav-link" routerLink="edit-profil/:id"> Mon Profil</a>
           </li>
-          <li class="nav-item">
+          <li routerLinkActive="active" class="nav-item">
             <a class="nav-link" routerLink="todolist"> Ma Todo List</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="categories ">Mes catégories</a>
+          <li routerLinkActive="active" class="nav-item">
+            <a class="nav-link" routerLink="categories">Mes catégories</a>
           </li>
-          <li class="nav-item">
+          <li routerLinkActive="active" class="nav-item">
           <a class="nav-link" routerLink="">Me déconnecter</a>
           </li>
 
       </ul>
 
-      <!-- voir après pour prise en charge de recherche de tache -->
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
     </div>
   </div>
 </nav>

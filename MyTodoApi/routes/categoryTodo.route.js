@@ -7,9 +7,9 @@ router.get('/', categoryTodoController.categoryTodoList);
 //get categoryTodo
 router.get('/:id', categoryTodoController.getCategoryTodo);
 //create categoryTodo
-router.post('/', categoryTodoController.addCategoryTodo);
+router.put('/', categoryTodoController.addCategoryTodo);
 //update categoryTodo
 router.put('/:id', categoryTodoController.updateCategoryTodo);
 
 
-module.exports = router;
+module.exports = router; 

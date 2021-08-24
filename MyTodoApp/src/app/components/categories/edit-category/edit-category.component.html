@@ -1,1 +1,27 @@
-<p>edit-category works!</p>
+<div class="container mt-5">
+  <h5>Modifier catégorie: {{category.categoryName|uppercase}}</h5>
+<div class="container mt-2">
+
+  <div class="row  mx-auto" >
+
+    Couleur Actuelle:
+    <div class="col-md-1" [ngStyle] = "{'background': category.categoryColor}"> 1</div>
+
+  <input  class="form-control" type="text" value="" [(ngModel)]= "category.categoryName"/>
+  <select class="form-select" id="status" name="categoryColor"  [(ngModel)]= "category.categoryColor"  required >
+    <option *ngFor="let color of colors, let i = index" [value]="color.color"  >
+
+     <div >
+       {{color.name}}
+       {{color.color}}
+     </div>
+
+    </option>
+
+ </select>
+  <button class="btn btn-primary"  (click)="onUpdateCatgToServer(category._id, category)" >valider</button>
+</div>
+
+</div>
+</div>
+

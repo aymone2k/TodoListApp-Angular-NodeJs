@@ -1,1 +1,20 @@
-<p>list-category works!</p>
+<div class="container mt-5">
+  <h5>Mes Catégories</h5>
+<div class="container mt-2">
+  <p>Ma liste de catégories</p>
+  {{today|date}}
+
+  <ul class="list-group container mx-5 mt-3 ">
+  <li class="list-group-item container px-1 mx-3" *ngFor="let catg of categories, let i = index">
+
+  <div class="row  mx-auto" >
+    {{catg._id}}
+   <div class="col-md-6"><p>Categorie N° {{i + 1}}  :  {{catg.categoryName|uppercase}}</p></div>
+    <div class="col-md-1" [ngStyle] = "{'background': catg.categoryColor}"> {{i + 1}}</div>
+    <button class="btn btn-success col-md-1 mx-5" type="button"  (click)=" onUpdateCatg(catg._id)">modifier</button>
+</div>
+
+  </li>
+</ul>
+</div>
+</div>

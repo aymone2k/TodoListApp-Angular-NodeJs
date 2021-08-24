@@ -1,21 +1,31 @@
 <div class="container-sm col-6">
   <h4>Ajouter une tache</h4>
   <form>
-    <div class="mb-3">
+    <div class="form-group">
       <label for="exampleInputEmail1" class="form-label">Nom</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input type="text" class="form-control" >
 
     </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Description</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" placeholder="Leave a comment here"></textarea>
     </div>
+    <div class="form-group">
     <select class="form-select" aria-label="Default select example">
       <option selected>Categories</option>
       <option value="1">One</option>
       <option value="2">Two</option>
       <option value="3">Three</option>
     </select>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <div class="form-group">
+      <select class="form-select" id="categories">
+        <option selected>Statut</option>
+        <option value="">En cours</option>
+        <option value="2">Terminé</option>
+
+      </select>
+      </div>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
   </form>
   </div>

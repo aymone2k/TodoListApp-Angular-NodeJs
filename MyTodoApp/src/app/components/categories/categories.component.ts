@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Category } from 'src/app/models/category.model';
+import { Color } from 'src/app/models/color.model';
+import { CategoryService } from 'src/app/services/category.service';
+import { COLORS } from 'src/color-data';
 
 @Component({
   selector: 'app-categories',
@@ -7,9 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+
   }
 
 }
