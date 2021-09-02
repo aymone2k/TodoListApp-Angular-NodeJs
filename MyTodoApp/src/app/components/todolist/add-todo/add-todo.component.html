@@ -1,31 +1,36 @@
 <div class="container-sm col-6">
   <h4>Ajouter une tache</h4>
-  <form>
+  <form [formGroup]="todoForm" (ngSubmit)="onSubmitForm()">
     <div class="form-group">
       <label for="exampleInputEmail1" class="form-label">Nom</label>
-      <input type="text" class="form-control" >
+      <input type="text" class="form-control"  formControlName="todoName">
 
     </div>
     <div class="form-group">
       <label class="form-label">Description</label>
-      <textarea class="form-control" placeholder="Leave a comment here"></textarea>
+      <textarea class="form-control" placeholder="Leave a comment here" formControlName="todoDescription"></textarea>
     </div>
     <div class="form-group">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Categories</option>
+      <label>Catégories</label>
+    <select class="form-select"  formControlName="category">
+
       <option value="1">One</option>
       <option value="2">Two</option>
       <option value="3">Three</option>
     </select>
     </div>
     <div class="form-group">
-      <select class="form-select" id="categories">
-        <option selected>Statut</option>
+      <label>Etat</label>
+      <select class="form-select" id="categories" formControlName="todoStatus">
+
         <option value="">En cours</option>
         <option value="2">Terminé</option>
 
       </select>
       </div>
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <div class="form-group"><p>span pr reccup le user et le mettre ici</p>
+      <input  formControlName="author"/>
+      </div>
+    <button type="submit" class="btn btn-primary" [disabled]="todoForm.invalid">Enregistrer</button>
   </form>
   </div>

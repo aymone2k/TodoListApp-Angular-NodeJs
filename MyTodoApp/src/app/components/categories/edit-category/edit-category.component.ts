@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
@@ -11,7 +11,7 @@ import { COLORS } from 'src/color-data';
   templateUrl: './edit-category.component.html',
   styleUrls: ['./edit-category.component.css']
 })
-export class EditCategoryComponent implements OnInit {
+export class EditCategoryComponent implements OnInit, OnDestroy {
 
   colors: Color[] = COLORS;
 
@@ -39,7 +39,10 @@ categorySub !: Subscription;
 
 this.categoryService.getCategoryByIdToServer(idGet);
     }
+ngOnDestroy(): void {
+  this.categorySub.unsubscribe();
 
+}
 
 
   onUpdateCatgToServer(i:string, category:Category){
