@@ -24,8 +24,9 @@ export class AddCategoryComponent implements OnInit {
   onSubmit(form: NgForm): void{
     const categoryName = form.value['categoryName'];
     const categoryColor = form.value['categoryColor'];
-   // this.categoryService.addCategory(categoryName, categoryColor)
+  // this.categoryService.addCategory(categoryName, categoryColor)
     this.categoryService.addCategoryToServer(categoryName, categoryColor);
+  //voir pr affichage des messages alerte si catégorie existe ....
   }
 
 }

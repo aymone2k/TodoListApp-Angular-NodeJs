@@ -12,19 +12,21 @@
     </div>
     <div class="form-group">
       <label>Catégories</label>
-    <select class="form-select"  formControlName="category">
 
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+    <select class="form-select"  formControlName="category" >
+
+      <option *ngFor="let catg of categories"[value]="catg._id">{{catg.categoryName}}, {{catg._id}}, {{catg.categoryColor}}</option>
+
     </select>
+    <button type="button" (click)="onCreateCategory()">ajouter une nouvelle catégorie</button>
+
     </div>
     <div class="form-group">
       <label>Etat</label>
       <select class="form-select" id="categories" formControlName="todoStatus">
 
-        <option value="">En cours</option>
-        <option value="2">Terminé</option>
+        <option value="false">En cours</option>
+        <option value="true">Terminé</option>
 
       </select>
       </div>

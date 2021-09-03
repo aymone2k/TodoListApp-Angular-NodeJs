@@ -64,7 +64,7 @@ import { TodoService } from './services/todo.service';
   ],
 
   providers: [
-
+    CategoryService,
   ],
   bootstrap: [AppComponent]
 })

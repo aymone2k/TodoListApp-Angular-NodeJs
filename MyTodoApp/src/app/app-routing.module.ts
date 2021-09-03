@@ -18,7 +18,7 @@ import { NotFoundComponent } from './view/not-found/not-found.component';
 import { TodoModalComponent } from './view/todo-modal/todo-modal.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
+  {path:'home', component: HomeComponent},
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'edit-profil/:id', component: EditProfilComponent},

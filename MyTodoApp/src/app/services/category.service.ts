@@ -9,12 +9,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CategoryService {
   api = environment.api;
-  today = new Date();
+
   categories : Category[]=[];
   categoriesSubject = new Subject<Category[]>();
   categorySubject = new Subject<Category>();
   category:any = new Category();
-
 
   constructor(private httpClient: HttpClient) {//injection du service httpClient
     }
@@ -43,6 +42,7 @@ export class CategoryService {
        };
     category.categoryName = categoryName;
     category.categoryColor = categoryColor;
+
 
     this.httpClient
       .put(this.api+'/categoryTodo/', category)

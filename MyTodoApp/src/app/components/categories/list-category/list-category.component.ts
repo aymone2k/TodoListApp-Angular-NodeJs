@@ -14,7 +14,7 @@ import { COLORS } from 'src/color-data';
 export class ListCategoryComponent implements OnInit ,OnDestroy{
 
 
-  today!:Date;
+
   colors: Color[] = COLORS;
   categories: Category[] =[];
 
@@ -24,7 +24,7 @@ export class ListCategoryComponent implements OnInit ,OnDestroy{
   constructor(private categoryService: CategoryService , private router: Router) { }
 
   ngOnInit(): void {
-      this.today = this.categoryService.today;
+
       this.categoriesSub = this.categoryService.categoriesSubject
                             .subscribe(
                               (value:any[])=>{
@@ -51,4 +51,8 @@ export class ListCategoryComponent implements OnInit ,OnDestroy{
  /*  onUpdateCatgToServer(i:number, category:Category){
     this.categoryService.onUpdateCatgToServer(i,category);
   } */
+
+  onCreateTodo():void{
+    this.router.navigate(["todolist"])
+  }
 }

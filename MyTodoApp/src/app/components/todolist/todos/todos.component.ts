@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
+import { CategoryService } from 'src/app/services/category.service';
 import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
@@ -11,19 +12,23 @@ import { TodoService } from 'src/app/services/todo.service';
 export class TodosComponent implements OnInit, OnDestroy {
   todos: Todo[] = [];
   todoSub !: Subscription;
-    constructor(private todoService: TodoService
+    constructor(private todoService: TodoService,
+                private categoryService: CategoryService,
                 ) { }
 
     ngOnInit(): void {
       this.todoSub = this.todoService.todoSubject
-                              .subscribe((todos: Todo[]) => {
+                              .subscribe(
+                                (todos: Todo[]) => {
                                     this.todos = todos
                               },
                               (error)=> {console.log(error)},
                               ()=>{console.log("Observable complété")}
                               )
-                              this.todoService.emitTodos();
-               }
+      this.todoService.emitTodos();
+      this.todoService.getTodoFromServer();
+
+                            }
 
     ngOnDestroy(): void {
       this.todoSub.unsubscribe();

@@ -2,7 +2,7 @@
   <h5>Mes Catégories</h5>
 <div class="container mt-2">
   <p>Ma liste de catégories</p>
-  {{today|date}}
+ <button class= "btn btn-secondary" (click)="onCreateTodo()">créer une tache</button>
 
   <ul class="list-group container mx-5 mt-3 ">
   <li class="list-group-item container px-1 mx-3" *ngFor="let catg of categories, let i = index">

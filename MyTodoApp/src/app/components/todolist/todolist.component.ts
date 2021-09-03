@@ -9,12 +9,14 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todolist.component.css']
 })
 export class TodolistComponent implements OnInit, OnDestroy {
-todos: Todo[] = [];
-todoSub !: Subscription;
+  today!:Date;
+  todos: Todo[] = [];
+  todoSub !: Subscription;
   constructor(private todoService: TodoService
               ) { }
 
   ngOnInit(): void {
+    this.today = this.todoService.today;
     this.todoSub = this.todoService.todoSubject
                             .subscribe((todos: Todo[]) => {
                                   this.todos = todos

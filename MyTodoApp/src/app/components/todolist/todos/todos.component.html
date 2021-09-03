@@ -2,7 +2,11 @@
   todos ici
   <li class="list-group-item" *ngFor="let todo of todos, let i = index">
     <p>N°:{{i}}</p>
-    {{todo|json}}
+
     <h3>{{todo.todoName}}</h3>
+    <h3>{{todo.category}}</h3>
+    <h3>{{todo.author}}</h3>
+    <h3>{{todo.createdAt|date}}</h3>
+    {{todo|json}}
   </li>
 </ul>
