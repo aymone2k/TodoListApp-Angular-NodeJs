@@ -19,7 +19,7 @@ export class CategoryService {
     }
 
   emitCategories():void{//met les données dans notre observable à chaq changement de données
-      this.categoriesSubject.next(this.categories);
+      this.categoriesSubject.next(this.categories.slice());
       }
 
 

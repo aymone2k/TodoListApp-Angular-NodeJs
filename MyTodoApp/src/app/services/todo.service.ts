@@ -16,7 +16,7 @@ export class TodoService {
   constructor(private httpClient: HttpClient) { }
 
   emitTodos(){
-    this.todoSubject.next(this.todos)
+    this.todoSubject.next(this.todos.slice())
   }
 
 
@@ -32,7 +32,7 @@ export class TodoService {
 
   addTodoToServer(todo: Todo){
     this.httpClient
-      .put(this.api+'/todo',todo)
+      .post(this.api+'/todo',todo)
       .subscribe(
         ()=>{
           console.log(todo)

@@ -8,8 +8,7 @@ const userSchema = mongoose.Schema(
     email: {type: String, required:true, unique: true, trim: true},
     password:  {type: String, required:true, trim:true},
     createdAt: {type: Date, default: Date.now},
-    image: {type: String, default: "http://placehold.it/150x150"},
-   //revoir image pour que la valeur par défaut s'affiche coté front lorsque avatar === null
+    image: String,
 });
  
 

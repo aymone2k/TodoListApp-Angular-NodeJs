@@ -30,6 +30,7 @@ module.exports={
       
 //SignUp
     signUp: async (req, res, next)=>{
+        console.log(req.body)
      try{
          const userExist = await User.exists({email: req.body.email});
          if(userExist){
@@ -37,9 +38,10 @@ module.exports={
              }
 
          const user = new User({
-            ...req.body ,
+             ...req.body ,
              password: User.generatePasswordHash(req.body.password),
-             image : `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}`
+             image : `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}`,
+            // image : `${req.protocol}://${req.get('host')}/images/users/${req.body.image}`
          }) 
  
        await user.save();

@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
 
-  api: 'http://localhost:3000/api'
+ api: 'http://localhost:3000/api'
+
+ //api:'https://testapp-6dbb4-default-rtdb.europe-west1.firebasedatabase.app/'
 };
 
 /*
