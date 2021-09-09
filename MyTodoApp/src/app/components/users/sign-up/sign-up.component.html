@@ -1,5 +1,6 @@
 <div class="container-sm col-6">
 <h4>Je créé un compte</h4>
+<form [formGroup]="userForm" (ngSubmit)="onSignUp()">
 <div class="mb-3 ">
   <label >Photo de profil: </label>
 
@@ -21,7 +22,7 @@
 </div>
 
 </div>
-<form [formGroup]="userForm" (ngSubmit)="onSignUp()">
+
   <div class="mb-3 ">
     <label >Nom :<span *ngIf="controlForm.name.errors">
       * (6 lettres minimum)

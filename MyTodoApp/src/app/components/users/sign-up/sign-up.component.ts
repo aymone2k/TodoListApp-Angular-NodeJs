@@ -46,18 +46,15 @@ export class SignUpComponent implements OnInit {
 
 uploadImage(event: any){
  const file: File = (event.target ).files[0];
-
  //modif et update de image
   this.userForm.get('image')?.patchValue(file);
   this.userForm.get('image')?.updateValueAndValidity();
-
-console.log(this.userForm.get('image')?.value)
-
 //affichage de l'image chargée
       const reader = new FileReader();
       reader.onload =()=>{
         if(this.userForm.get('image')?.valid){
           this.imagePreview = reader.result as string;
+          console.log(this.userForm.value.image)
         }else{
         this.imagePreview = "";
         }
@@ -69,15 +66,25 @@ console.log(this.userForm.get('image')?.value)
 
   onSignUp(){
   const newUser = new User();
-
    newUser.name = this.userForm.get('name')?.value;
    newUser.email = this.userForm.get('email')?.value;
    newUser.password = this.userForm.get('password')?.value;
    newUser.confirmPassword = this.userForm.get('confirmPassword')?.value;
    newUser.image ='';
 
-    this.userService.addUserToServer(newUser);
-  //  this.router.navigate(['/signin']);
+   //save user
+    this.userService.addUserToServer(newUser, this.userForm.value.image)
+    .then(
+      ()=>{
+        this.userForm.reset();
+          //  this.router.navigate(['/signin']);
+      })
+      .catch(
+        (err)=>{
+          console.log(err.message);
+        }
+      );
+
   }
 
 }
