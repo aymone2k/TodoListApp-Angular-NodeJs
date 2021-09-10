@@ -8,6 +8,7 @@ import { Todo } from '../models/todo.model';
   providedIn: 'root'
 })
 export class TodoService {
+  todo:any;
   api = environment.api;
   today = new Date();
   todos: Todo[] = [];
@@ -62,7 +63,25 @@ export class TodoService {
 
   //voir pour modifier un todo et pour supprimer
 
-  getTodoByIdFromServer(){}
+  getTodoByIdFromServer(id: string){
+    this.httpClient
+     .get(this.api+'/todo/'+id)
+     .subscribe(
+        (todoReccup: any)=>{
+
+         this.todo = todoReccup,
+         this.todoSubject.next(this.todo);;
+
+        },
+         (error)=>{
+           console.log(error)
+         },
+         ()=>{
+          console.log("reccupération des données terminée")
+         }
+
+     )
+  }
 
   onUpdateTodoToServer(){}
 

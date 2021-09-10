@@ -6,9 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li routerLinkActive="active" class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="home">Home</a>
-        </li>
+
      <!--    affiche si déconnecté -->
      <div class="collapse navbar-collapse"  *ngIf="!isAuth">
       <li routerLinkActive="active" class="nav-item" >
@@ -24,10 +22,6 @@
 
      <div class="collapse navbar-collapse" *ngIf="isAuth">
 
-          <li routerLinkActive="active" class="nav-item">
-            <h6>affiche le nom de l'user</h6>
-
-          </li>
           <li routerLinkActive="active" class="nav-item">
             <a class="nav-link" routerLink="edit-profil/:id"> Mon Profil</a>
           </li>
