@@ -16,7 +16,22 @@ export class UserService {
   isAuth$ = new BehaviorSubject<boolean>(false);
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.initAuth();
+  }
+//pour verifier si on a des données en local
+initAuth(){
+  if(typeof localStorage !== "undefined"){
+    const data = JSON.parse(localStorage.getItem('userLogin')||'{}');
+    if(data){
+      if(data.userId && data.token){
+        this.userId = data.userId;
+        this.token = data.token;
+        this.isAuth$.next(true);
+      }
+    }
+  }
+}
 //création d'un user
   addUserToServer(user: User, image: File){
     //creation de l'objet userData contenant l'image
@@ -85,11 +100,14 @@ getUserToServer(email:string, password: string){
   return new Promise((resolve, reject)=>{
     this.httpClient.post(this.api+'/user/signin', {email: email, password: password}).subscribe(
       (authData:Data)=>{
-
         this.token = authData.token;
         this.userId = authData.userId;
         console.log(authData);
         this.isAuth$.next(true);
+        //save authData in localStorage
+          if(typeof localStorage !== "undefined"){
+            localStorage.setItem('userLogin', JSON.stringify(authData))
+          }
         resolve(true);
       },
       (error)=>{
@@ -103,6 +121,9 @@ logout(){
   this.isAuth$.next(false);
   this.userId = "";
   this.token = "";
+  if(typeof localStorage !== "undefined"){
+    localStorage.setItem('userLogin', '')
+  }
 }
 
 }
