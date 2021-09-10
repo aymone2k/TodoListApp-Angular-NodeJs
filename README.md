@@ -1,6 +1,11 @@
  # création d'une application todoList:
 =====================================
-petite application todoList en Angular et NodeJs, 
+application todoList en Angular et NodeJs, 
+l'utilisateur doit créer un compte s'il n'en a pas.
+il pourra se connecter pour afficher, modifier ou supprimer ses taches et la catégorie de ses taches.
+chaque tache est est reliée à une catégorie et un user.
+chaque catégorie est reliée à un utilisateur et une couleur.
+en cas d'oublie du mot de passe, un reset passord permettra se remplir un formulaire afin qu'il reçoive un password provisoire par mail(via nodemailer); 
 # coté front: 
 # ------------
 [Angular]
