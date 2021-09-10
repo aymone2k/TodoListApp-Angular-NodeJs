@@ -11,6 +11,7 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class TodosComponent implements OnInit, OnDestroy {
   todos: Todo[] = [];
+  userId:string="";
   todoSub !: Subscription;
     constructor(private todoService: TodoService,
                 private categoryService: CategoryService,
@@ -20,12 +21,11 @@ export class TodosComponent implements OnInit, OnDestroy {
       this.todoSub = this.todoService.todoSubject
                               .subscribe(
                                 (todos: Todo[]) => {
-                                    this.todos = todos
+                                    this.todos = todos;
                               },
-                              (error)=> {console.log(error)},
-                              ()=>{console.log("Observable complété")}
-                              )
-      this.todoService.emitTodos();
+                              (error)=> {console.log(error)}
+                              );
+      //this.todoService.emitTodos();
       this.todoService.getTodoFromServer();
 
                             }

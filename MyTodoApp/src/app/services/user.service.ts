@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,11 +12,12 @@ import { User } from '../models/user.model';
 export class UserService {
   api = environment.api;
   token: string = '';
-  userId:string = '';
+  author:string = '';
   isAuth$ = new BehaviorSubject<boolean>(false);
 
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
     this.initAuth();
   }
 //pour verifier si on a des données en local
@@ -24,8 +25,10 @@ initAuth(){
   if(typeof localStorage !== "undefined"){
     const data = JSON.parse(localStorage.getItem('userLogin')||'{}');
     if(data){
-      if(data.userId && data.token){
-        this.userId = data.userId;
+      console.log(data);
+      if(data.id && data.token){
+
+        this.author = data.id;
         this.token = data.token;
         this.isAuth$.next(true);
       }
@@ -101,7 +104,7 @@ getUserToServer(email:string, password: string){
     this.httpClient.post(this.api+'/user/signin', {email: email, password: password}).subscribe(
       (authData:Data)=>{
         this.token = authData.token;
-        this.userId = authData.userId;
+        this.author = authData.id;
         console.log(authData);
         this.isAuth$.next(true);
         //save authData in localStorage
@@ -119,11 +122,12 @@ getUserToServer(email:string, password: string){
 
 logout(){
   this.isAuth$.next(false);
-  this.userId = "";
+  this.author = "";
   this.token = "";
   if(typeof localStorage !== "undefined"){
     localStorage.setItem('userLogin', '')
   }
+  this.router.navigate(['/home'])
 }
 
 }

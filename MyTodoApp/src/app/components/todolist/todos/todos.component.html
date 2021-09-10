@@ -1,12 +1,15 @@
 <ul class="list-group">
   todos ici
   <li class="list-group-item" *ngFor="let todo of todos, let i = index">
-    <p>N°:{{i}}</p>
+    <div class="row"><p>N°:{{i+1}}</p>
 
-    <h3>{{todo.todoName}}</h3>
-    <h3>{{todo.category}}</h3>
+    <h3>{{todo.todoName}}</h3></div>
+    <div class="row">
+   <h3>{{todo.category}}</h3>
     <h3>{{todo.author}}</h3>
     <h3>{{todo.createdAt|date}}</h3>
+
+  </div>
     {{todo|json}}
   </li>
 </ul>

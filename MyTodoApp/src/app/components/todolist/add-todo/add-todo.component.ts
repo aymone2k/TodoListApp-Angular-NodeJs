@@ -6,6 +6,7 @@ import { Category } from 'src/app/models/category.model';
 import { Todo } from 'src/app/models/todo.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { TodoService } from 'src/app/services/todo.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-todo',
@@ -19,7 +20,11 @@ export class AddTodoComponent implements OnInit {
   todos:any;
   categories: Category[] =[];
   categoriesSub!: Subscription;
+  author: string ="";
+  errorMessage: string = "";
+
   constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
               private todoService: TodoService,
               private categoryService: CategoryService,
               private router: Router) { }
@@ -48,18 +53,13 @@ export class AddTodoComponent implements OnInit {
       todoStatus: false,
       todoDescription:['', Validators.required],
       category:["", Validators.required],
-      author: ['', Validators.required],
-    }
-    )
+
+    });
+    this.author = this.userService.author;
   }
 
 
-  getCategoryTodo(){
-    //methode pour reccup les catgories dans la liste
-  }
-  getUserTodo(){
-    // methode pour reccup l'author
-  }
+
 
   onSubmitForm() {
     const formValue= this.todoForm.value;
@@ -68,10 +68,18 @@ export class AddTodoComponent implements OnInit {
       formValue['todoStatus'],
       formValue['todoDescription'],
       formValue['category'],
-      formValue['author'],
+      formValue['author']= this.author,
     );
     this.todoService.addTodo(newTodo);
-    this.todoService.addTodoToServer(newTodo);
+    this.todoService.addTodoToServer(newTodo)
+      .then(
+        ()=>{
+          this.todoForm.reset();
+        }
+      )
+      .catch(
+        (err)=>{this.errorMessage = err.message;}
+      );
 
   }
   onCreateCategory():void{

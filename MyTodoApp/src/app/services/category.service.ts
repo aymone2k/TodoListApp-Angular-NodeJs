@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Data } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class CategoryService {
     }
 
   emitCategories():void{//met les données dans notre observable à chaq changement de données
-      this.categoriesSubject.next(this.categories.slice());
+      this.categoriesSubject.next(this.categories);
       }
 
 
@@ -35,71 +36,92 @@ export class CategoryService {
       this.emitCategories(); */
    }
 
-  addCategoryToServer(categoryName: string, categoryColor:string):void{
+  addCategoryToServer(categoryName: string, categoryColor:string, author: string){
+   return new Promise((resolve, reject)=>{
     const category ={
        categoryName: "",
        categoryColor: "white",
+       author:"",
        };
     category.categoryName = categoryName;
     category.categoryColor = categoryColor;
+    category.author = author;
 
 
     this.httpClient
-      .put(this.api+'/categoryTodo/', category)
+      .post(this.api+'/categoryTodo', category)
       .subscribe(
-        ()=>{
-          console.log("enregistrement terminé")},
+        (data:Data)=>{
+          if(data.status === 201){
+            this.getCategoriesToServer();
+            resolve(data)
+          }else{
+            reject(data.message)
+          }
+         },
         (error)=>{
           console.log('Erreur:'+error)}
       )
     this.emitCategories();
+     })
     }
 
   getCategoriesToServer():void{
     this.httpClient
-      .get<Category[]>(this.api+'/categoryTodo/')
+      .get(this.api+'/categoryTodo')
       .subscribe(
-        (categoriesReccup: Category[])=>{
-          this.categories = categoriesReccup;
-          this.emitCategories();},
+        (data: Data)=>{
+          if(data.status ===200){
+            this.categories = data.message;
+            this.emitCategories();
+          }else{
+            console.log(data);
+          }},
         (error)=>{
           console.log("erreur:"+ error);},
-        ()=>{
-          console.log("reccupération des données terminée")})
+      )
    }
 
 
   getCategoryByIdToServer(id: string){
+    return new Promise((resolve, reject)=>{
      this.httpClient
      .get(this.api+'/categoryTodo/'+id)
      .subscribe(
-        (catReccup: any)=>{
-
-         this.category = catReccup,
-         this.categorySubject.next(this.category);;
+        (data: Data)=>{
+          if(data.satus === 200){
+            resolve(data.message)
+          }else{
+            reject(data.message);
+          }
+     //    this.category = catReccup,
+       //  this.categorySubject.next(this.category);;
 
         },
          (error)=>{
-           console.log(error)
-         },
-         ()=>{
-          console.log("reccupération des données terminée")
+          reject(error)
          }
-
      )
-
+        })
   }
 
-  onUpdateCatgToServer(i: string, category:Category):void{
+  onUpdateCatgToServer(id: string, category:Category){
+    return new Promise((resolve, reject)=>{
+
     this.httpClient
-    .put(this.api+'/categoryTodo/'+i, category)
+    .put(this.api+'/categoryTodo/'+id, category)
     .subscribe(
-      ()=>{
-        console.log("enregistrement terminé")
-        this.categorySubject.next(this.category)},
+      (data: Data)=>{
+        if(data.status === 200){
+          //ajouter affichage du message server
+          resolve(data)
+        }else{
+          reject(data)
+        }},
       (error)=>{
         console.log('Erreur:'+error)}
     )
+  })
   //this.emitCategories();
   }
 

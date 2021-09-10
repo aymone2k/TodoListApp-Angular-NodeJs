@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Data } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import { Todo } from '../models/todo.model';
 
 @Injectable({
@@ -17,8 +19,9 @@ export class TodoService {
   constructor(private httpClient: HttpClient) { }
 
   emitTodos(){
-    this.todoSubject.next(this.todos.slice())
+    this.todoSubject.next(this.todos)
   }
+
 
 
   getUserTodo(){
@@ -32,11 +35,39 @@ export class TodoService {
 
 
   addTodoToServer(todo: Todo){
-    this.httpClient
+    return new Promise((resolve, reject)=>{
+      this.httpClient
       .post(this.api+'/todo',todo)
       .subscribe(
-        ()=>{
-          console.log(todo)
+        (data: Data)=>{
+          if(data.status === 201){
+            this.getTodoFromServer();
+            resolve(data.message)
+          }else{
+            reject(data.message);
+          }
+
+        },
+        (error)=>{
+          console.log(error)
+        }
+      )
+    })
+
+
+  }
+
+  getTodoFromServer():void{
+    this.httpClient
+      .get(this.api+'/todo')
+      .subscribe(
+        (data: Data)=>{
+          if(data.status === 200){
+            this.todos = data.message;
+            this.emitTodos();
+          }else{
+            console.log(data)
+          }
         },
         (error)=>{
           console.log(error)
@@ -45,45 +76,57 @@ export class TodoService {
 
   }
 
-  getTodoFromServer():void{
-    this.httpClient
-      .get<Todo[]>(this.api+'/todo')
-      .subscribe(
-        (todosReccup: Todo[])=>{
-          this.todos = todosReccup;
-          this.emitTodos();
-        },
-        (error)=>{
-          console.log(error)
-        },
-        ()=>{console.log("todos réccupérées")}
-      )
-
-  }
-
   //voir pour modifier un todo et pour supprimer
 
   getTodoByIdFromServer(id: string){
-    this.httpClient
-     .get(this.api+'/todo/'+id)
-     .subscribe(
-        (todoReccup: any)=>{
-
-         this.todo = todoReccup,
-         this.todoSubject.next(this.todo);;
+    return new Promise((resolve, reject)=>{
+      this.httpClient.get(this.api+'/todo/'+id)
+        .subscribe(
+           (data: Data)=>{
+              if(data.status === 200){
+                resolve(data.message)
+              }else{
+                reject(data.message);
+              }
+        // this.todo = todoReccup,
+        // this.todoSubject.next(this.todo);;
 
         },
          (error)=>{
-           console.log(error)
-         },
-         ()=>{
-          console.log("reccupération des données terminée")
+           reject(error)
          }
-
      )
+  })
+}
+
+  onUpdateTodoToServer(id: string, todo: Todo){
+    return new Promise((resolve, reject)=>{
+      this.httpClient.put(this.api+'/todo/'+id, todo).subscribe(
+        (data: Data)=>{
+          if(data.status === 200){
+            //ajouter affichage du message server
+            resolve(data.message);
+          }else{
+            reject(data);
+          }
+        },
+        (err)=>{
+          reject(err);
+        })
+    })
   }
 
-  onUpdateTodoToServer(){}
-
-  onDeleteTodoToServer(){}
+  onDeleteTodoToServer(id: string, todo: Todo){
+    return new Promise((resolve, reject)=>{
+      this.httpClient.delete(this.api+'/todo/'+id).subscribe(
+        ()=>{
+          this.getTodoFromServer();
+          resolve(true);
+        },
+        (err)=>{
+          reject(err);
+        }
+      )
+    })
+  }
 }
