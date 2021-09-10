@@ -1,25 +1,31 @@
 <div class="container-sm col-6">
 <h4>Je me connecte</h4>
-<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
-  </div>
-
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="col-md-6">
-    <div class="input-group mb-2 mr-sm-2">
-        <input type="password" class="form-control" id="Password" formControlName="password">
-        <div class="input-group-prepend">
-            <button type="button" class="input-group-text theme-btn--dark1 btn--md show-password">show</button>
-        </div>
+<form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+  <div class="mb-3" >
+    <label >Adresse Email *:</label>
+    <input type="email" class="form-control" formControlName="email" >
+    <div *ngIf="controlForm.email.touched && controlForm.email.errors" class="alert alert-danger">
+      <div *ngIf="controlForm.email.errors.required">Ce champ est requis</div>
+      <div *ngIf="controlForm.email.errors">cet email est invalide</div>
     </div>
-</div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="col-md-3 ">
+      <label >Password : <span *ngIf="controlForm.password.errors">
+       *  </span></label>
+       <div class="input-group mb-3 ">
+         <input type="password" class="form-control"formControlName="password">
+         <div class="input-group-prepend">
+             <button type="button" class="input-group-text theme-btn--dark1 btn--md show-password">show</button>
+         </div>
+         <div *ngIf="controlForm.password.touched && controlForm.password.errors" class="alert alert-danger">
+           <div *ngIf="controlForm.password.errors.required">Ce champ est requis</div>
+           <div *ngIf="controlForm.password.errors.pattern">6 lettres minimun</div>
+         </div>
+       </div>
+       </div>
+       </div>
+       <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Me connecter</button>
 </form>
 <div class="col-12">
   <div class="border-top">

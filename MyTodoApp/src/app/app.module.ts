@@ -23,9 +23,10 @@ import { SignUpComponent } from './components/users/sign-up/sign-up.component';
 import { SignInComponent } from './components/users/sign-in/sign-in.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
+
 import { CategoryService } from './services/category.service';
 import { TodoService } from './services/todo.service';
+import { HeaderPageComponent } from './view/header-page/header-page.component';
 
 
 
@@ -52,6 +53,7 @@ import { TodoService } from './services/todo.service';
     SignUpComponent,
     SignInComponent,
     CategoriesComponent,
+    HeaderPageComponent,
 
 
   ],

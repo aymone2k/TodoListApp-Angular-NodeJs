@@ -1,32 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
- salutationSub!: Subscription;
- welcome: string = '';
-  constructor() { }
+ isAuth:boolean = true;
+  constructor(private userService: UserService) {
+
+   }
 
   ngOnInit() {
-    const salutation = new Observable((salut)=>{
-      salut.next("Bonjour");
-      salut.next("User");
-      salut.next("Bienvenue!");
-      salut.complete();
-    })
+    this.userService.isAuth$.subscribe(
+      (bool: boolean)=>{
+        this.isAuth = bool
+      } )
+   }
 
-    this.salutationSub = salutation.subscribe(
-      (value:any)=>{console.log(value), this.welcome = value},
-      (error)=>{console.log("Error:"+error)},
-      ()=>{console.log("observable complété")},)
+  logout(){
+    this.userService.logout();
   }
 
-  ngOnDestroy(){
-    this.salutationSub.unsubscribe();
-  }
+
 }

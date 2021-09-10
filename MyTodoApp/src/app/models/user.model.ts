@@ -4,7 +4,7 @@ export class User {
    email: string="";
    password: string="";
    confirmPassword: string="";
-   image!: string;
+   image?: string;
    createdAt?: Date;
 
 }

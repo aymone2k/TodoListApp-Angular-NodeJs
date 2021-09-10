@@ -12,23 +12,25 @@ import { MustMatch } from 'src/app/_helpers/must-match.validators';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-
-  userForm !: FormGroup;
+  errorMessage!: string;
+  message!:string;
+  signUpForm !: FormGroup;
   imagePreview: string ="";
+
   constructor(private formBuilder:FormBuilder,
               private userService: UserService,
               private router: Router) {
               }
 
   ngOnInit(): void {
-    this.initUserForm();
+    this.initSignUpForm();
   }
 
-  initUserForm(){
-    this.userForm = this.formBuilder.group({
+  initSignUpForm(){
+    this.signUpForm = this.formBuilder.group({
       name:["", [Validators.required, Validators.minLength(6), ]],
       email:["", [Validators.required, Validators.email]],
-      image:[null, Validators.required],
+      image:null,
       password:["", [Validators.required, Validators.pattern('[a-zA-Z ]{6,}')]],//6min
       confirmPassword:["", Validators.required],
     },
@@ -41,20 +43,20 @@ export class SignUpComponent implements OnInit {
 
 
  get controlForm(){
-  return this.userForm.controls; //reccup les champs saisies du form pour control
+  return this.signUpForm.controls; //reccup les champs saisies du form pour control
 }
 
 uploadImage(event: any){
  const file: File = (event.target ).files[0];
  //modif et update de image
-  this.userForm.get('image')?.patchValue(file);
-  this.userForm.get('image')?.updateValueAndValidity();
+  this.signUpForm.get('image')?.patchValue(file);
+  this.signUpForm.get('image')?.updateValueAndValidity();
 //affichage de l'image chargée
       const reader = new FileReader();
       reader.onload =()=>{
-        if(this.userForm.get('image')?.valid){
+        if(this.signUpForm.get('image')?.valid){
           this.imagePreview = reader.result as string;
-          console.log(this.userForm.value.image)
+          console.log(this.signUpForm.value.image)
         }else{
         this.imagePreview = "";
         }
@@ -66,22 +68,23 @@ uploadImage(event: any){
 
   onSignUp(){
   const newUser = new User();
-   newUser.name = this.userForm.get('name')?.value;
-   newUser.email = this.userForm.get('email')?.value;
-   newUser.password = this.userForm.get('password')?.value;
-   newUser.confirmPassword = this.userForm.get('confirmPassword')?.value;
+   newUser.name = this.signUpForm.get('name')?.value;
+   newUser.email = this.signUpForm.get('email')?.value;
+   newUser.password = this.signUpForm.get('password')?.value;
+   newUser.confirmPassword = this.signUpForm.get('confirmPassword')?.value;
    newUser.image ='';
 
    //save user
-    this.userService.addUserToServer(newUser, this.userForm.value.image)
+    this.userService.addUserToServer(newUser, this.signUpForm.value.image)
     .then(
-      ()=>{
-        this.userForm.reset();
-          //  this.router.navigate(['/signin']);
+      (data: any)=>{
+        console.log(data)
+        this.message = data.message
+         // this.router.navigate(["/signin"]);
       })
       .catch(
-        (err)=>{
-          console.log(err.message);
+        (error)=>{
+          this.errorMessage = error.message;
         }
       );
 

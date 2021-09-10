@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Data } from '@angular/router';
+
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 
@@ -9,6 +11,10 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   api = environment.api;
+  token: string = '';
+  userId:string = '';
+  isAuth$ = new BehaviorSubject<boolean>(false);
+
 
   constructor(private httpClient: HttpClient) { }
 //création d'un user
@@ -18,19 +24,24 @@ export class UserService {
         let userData: FormData = new FormData();
         userData.append('user', JSON.stringify(user));
         userData.append('image', image);
-        console.log(userData)
 
     //gestion de la requete http
         this.httpClient
           .post(this.api+'/user/signup', userData)
           .subscribe(
-            (data:Data)=>{
-              console.log(data)
-              if(data.status === 201){
-                resolve(data)
+
+            (signupData:Data)=>{
+              console.log(signupData)
+              if(signupData.status === 201){
+                resolve(signupData)
+             /*  this.getUserToServer(user.email, user.password)
+                .then(()=>{
+                  resolve(true);})
+                .catch(err=>{reject(err)})
               }else{
-                reject(data.message)
-              }
+                reject(signupData.message)
+              } */
+            }
               },
             (error)=>{
               reject(error)
@@ -70,8 +81,28 @@ export class UserService {
 
 //connection d'un user
 
-getUserToServer(user: User){
+getUserToServer(email:string, password: string){
+  return new Promise((resolve, reject)=>{
+    this.httpClient.post(this.api+'/user/signin', {email: email, password: password}).subscribe(
+      (authData:Data)=>{
 
+        this.token = authData.token;
+        this.userId = authData.userId;
+        console.log(authData);
+        this.isAuth$.next(true);
+        resolve(true);
+      },
+      (error)=>{
+        reject(error)
+      })
+  })
+
+}
+
+logout(){
+  this.isAuth$.next(false);
+  this.userId = "";
+  this.token = "";
 }
 
 }
