@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 module.exports={
 //get categoryTodoList
     categoryTodoList:(req, res, next)=>{
-        //revoir pour que seule les ctg créées par le user puissent s'afficher
-        CategoryTodo.find()
+        const idAuthor = req.params.idAuthor;
+        CategoryTodo.find({author: idAuthor})
         .then((categories)=>{res.status(200).json({status:200, message:categories})})
         .catch((err)=>{res.status(400).json({message: err.message})})
     },

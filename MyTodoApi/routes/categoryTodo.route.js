@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const categoryTodoController = require('../controllers/categoryTodo.controller')
 
-//get categoryTodoList
-router.get('/', categoryTodoController.categoryTodoList);
+//get categoryTodoList d'un author
+router.get('/:idAuthor', categoryTodoController.categoryTodoList);
 //get categoryTodo
-router.get('/:id', categoryTodoController.getCategoryTodo);
+router.get('/:id ', categoryTodoController.getCategoryTodo);
 //create categoryTodo
 router.post('/', categoryTodoController.addCategoryTodo);
 //update categoryTodo

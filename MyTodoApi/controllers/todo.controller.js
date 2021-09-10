@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 module.exports={
 //get todoList 
     todoList:(req, res, next)=>{
-        Todo.find()
+        const idAuthor = req.params.idAuthor;
+        Todo.find({author: idAuthor})
         .then((todos)=>{res.status(200).json({status:200, message:todos})})
         .catch((err)=>{res.status(404).json(err.message)})
     },

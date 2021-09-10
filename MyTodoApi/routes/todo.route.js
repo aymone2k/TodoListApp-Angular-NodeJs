@@ -4,8 +4,8 @@ const todoController = require('../controllers/todo.controller')
 
 
 
-//get todoList
-router.get('/', todoController.todoList);
+//get todoList d'un author
+router.get('/:idAuthor', todoController.todoList);
 //create todo
 router.post('/', todoController.addTodo)
 //read todo
@@ -15,4 +15,4 @@ router.put('/:id', todoController.updateTodo)
 //delete todo
 router.delete('/:id', todoController.deleteTodo)
 
-module.exports = router;  
+module.exports = router;   
