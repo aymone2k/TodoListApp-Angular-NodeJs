@@ -41,7 +41,7 @@ export class AddTodoComponent implements OnInit {
           ()=>{
             console.log('observable complété!')});
         this.categoryService.emitCategories();
-        this.categoryService.getCategoriesToServer();
+        this.categoryService.getCategoriesToServer(this.author);
 
 
   }
@@ -71,7 +71,7 @@ export class AddTodoComponent implements OnInit {
       formValue['author']= this.author,
     );
     this.todoService.addTodo(newTodo);
-    this.todoService.addTodoToServer(newTodo)
+    this.todoService.addTodoToServer(newTodo, this.author)
       .then(
         ()=>{
           this.todoForm.reset();

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { Color } from 'src/app/models/color.model';
 import { CategoryService } from 'src/app/services/category.service';
+import { UserService } from 'src/app/services/user.service';
 import { COLORS } from 'src/color-data';
 
 @Component({
@@ -17,11 +18,11 @@ export class ListCategoryComponent implements OnInit ,OnDestroy{
 
   colors: Color[] = COLORS;
   categories: Category[] =[];
-
+  author: string ="";
   categoriesSub!: Subscription;
 
 
-  constructor(private categoryService: CategoryService , private router: Router) { }
+  constructor(private categoryService: CategoryService , private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -33,8 +34,9 @@ export class ListCategoryComponent implements OnInit ,OnDestroy{
                                 console.log("une erreur: "+error)},
                               ()=>{
                                 console.log('observable complété!')});
+  this.author = this.userService.author;
       this.categoryService.emitCategories();
-      this.categoryService.getCategoriesToServer();
+      this.categoryService.getCategoriesToServer(this.author);
     }
 
   ngOnDestroy(){

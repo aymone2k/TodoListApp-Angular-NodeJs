@@ -1,13 +1,15 @@
 <div class="container mt-5">
   <h5>Mes Catégories</h5>
 <div class="container mt-2">
-  <p>Ma liste de catégories</p>
- <button class= "btn btn-secondary" (click)="onCreateTodo()">créer une tache</button>
 
-  <ul class="list-group container mx-5 mt-3 ">
+  <button class= "btn btn-secondary" (click)="onCreateTodo()">créer une tache</button>
+  <div *ngIf="categories.length == 0">pas de catégories saisies</div>
+
+
+  <ul  *ngIf="categories.length !== 0" class="list-group container mx-5 mt-3 ">
   <li class="list-group-item container px-1 mx-3" *ngFor="let catg of categories, let i = index">
 
-  <div class="row  mx-auto" >
+  <div class="row  mx-auto">
     {{catg._id}}
    <div class="col-md-6"><p>Categorie N° {{i + 1}}  :  {{catg.categoryName|uppercase}}</p></div>
     <div class="col-md-1" [ngStyle] = "{'background': catg.categoryColor}"> {{i + 1}}</div>

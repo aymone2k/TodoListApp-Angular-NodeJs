@@ -53,7 +53,7 @@ export class CategoryService {
       .subscribe(
         (data:Data)=>{
           if(data.status === 201){
-            this.getCategoriesToServer();
+            this.getCategoriesToServer(author);
             resolve(data)
           }else{
             reject(data.message)
@@ -66,9 +66,9 @@ export class CategoryService {
      })
     }
 
-  getCategoriesToServer():void{
+  getCategoriesToServer(author:string):void{
     this.httpClient
-      .get(this.api+'/categoryTodo')
+      .get(this.api+'/categoryTodo/'+author)
       .subscribe(
         (data: Data)=>{
           if(data.status ===200){

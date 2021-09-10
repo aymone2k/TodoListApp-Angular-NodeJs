@@ -1,15 +1,26 @@
-<ul class="list-group">
-  todos ici
-  <li class="list-group-item" *ngFor="let todo of todos, let i = index">
-    <div class="row"><p>N°:{{i+1}}</p>
+<div class="container mt-5">
+  <h5> Ma liste</h5>
+<div class="container mt-2">
+  <p>Nous sommes aujourd'hui le  {{today|date}} </p>
+<div *ngIf="todos.length == 0">
+  Pas de taches saisies
+</div>
+<div  *ngIf="todos.length !== 0">
+  <ul class="list-group">
 
-    <h3>{{todo.todoName}}</h3></div>
-    <div class="row">
-   <h3>{{todo.category}}</h3>
-    <h3>{{todo.author}}</h3>
-    <h3>{{todo.createdAt|date}}</h3>
+    <li class="list-group-item" *ngFor="let todo of todos, let i = index">
+      <div class="row"><p>N°:{{i+1}}</p>
 
-  </div>
-    {{todo|json}}
-  </li>
-</ul>
+      <h3>{{todo.todoName}}</h3></div>
+      <div class="row">
+     <h3>{{todo.category}}</h3>
+      <h3>{{todo.author}}</h3>
+      <h3>{{todo.createdAt|date}}</h3>
+
+    </div>
+      {{todo|json}}
+    </li>
+  </ul>
+</div>
+</div>
+</div>

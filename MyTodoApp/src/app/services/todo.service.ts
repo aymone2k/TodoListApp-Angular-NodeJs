@@ -34,14 +34,14 @@ export class TodoService {
   }
 
 
-  addTodoToServer(todo: Todo){
+  addTodoToServer(todo: Todo, author:string){
     return new Promise((resolve, reject)=>{
       this.httpClient
       .post(this.api+'/todo',todo)
       .subscribe(
         (data: Data)=>{
           if(data.status === 201){
-            this.getTodoFromServer();
+            this.getTodoFromServer(author);
             resolve(data.message)
           }else{
             reject(data.message);
@@ -57,9 +57,9 @@ export class TodoService {
 
   }
 
-  getTodoFromServer():void{
+  getTodoFromServer(author:string):void{
     this.httpClient
-      .get(this.api+'/todo')
+      .get(this.api+'/todo/'+author)
       .subscribe(
         (data: Data)=>{
           if(data.status === 200){
@@ -116,11 +116,11 @@ export class TodoService {
     })
   }
 
-  onDeleteTodoToServer(id: string, todo: Todo){
+  onDeleteTodoToServer(id: string, todo: Todo, author:string){
     return new Promise((resolve, reject)=>{
       this.httpClient.delete(this.api+'/todo/'+id).subscribe(
         ()=>{
-          this.getTodoFromServer();
+          this.getTodoFromServer(author);
           resolve(true);
         },
         (err)=>{

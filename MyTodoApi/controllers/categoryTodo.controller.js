@@ -6,7 +6,7 @@ module.exports={
     categoryTodoList:(req, res, next)=>{
         //revoir pour que seule les ctg créées par le user puissent s'afficher
         CategoryTodo.find()
-        .then((categories)=>{res.status(200).json(categories)})
+        .then((categories)=>{res.status(200).json({status:200, message:categories})})
         .catch((err)=>{res.status(400).json({message: err.message})})
     },
 
@@ -15,12 +15,13 @@ module.exports={
     getCategoryTodo:(req, res, next)=>{
         const idCatg = req.params.id;
         CategoryTodo.findOne({_id: idCatg})
-        .then((category)=>{res.status(200).send(category)})
+        .then((category)=>{res.status(200).json({status:200, message:category})})
         .catch((err)=>{res.status(400).json({message: err.message})})
     },
 
 //create categoryTodo
     addCategoryTodo: async(req, res, next)=>{
+        
         try{
             const categoryExist = await CategoryTodo.exists({categoryName: req.body.categoryName})
         if(categoryExist){
@@ -28,10 +29,10 @@ module.exports={
         }
         const categoryAdd = new CategoryTodo({
             ...req.body, 
-            author: req.user,
+            author: req.body.author,
             });
         categoryAdd.save()
-        .then((catg)=>{res.status(201).json({message:`la categorie a été crée` })})
+        .then((catg)=>{res.status(201).json({status: 201, message:`la categorie a été crée ${catg}` })})
         .catch((err)=>{res.status(400).json({message: err.message})})
     }
     catch(err){res.status(500).json({message: err.message})};
@@ -49,7 +50,7 @@ module.exports={
             if(err){
                 return res.status(500).json({message: err.message})
             }
-            return res.status(200).json({message: `la tache ${catg.categoryName} a été modifiée!`})
+            return res.status(200).json({status:200, message: `la tache ${catg.categoryName} a été modifiée!`})
         })
 
     },

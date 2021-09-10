@@ -5,26 +5,27 @@ module.exports={
 //get todoList 
     todoList:(req, res, next)=>{
         Todo.find()
-        .then((todos)=>{res.status(200).json(todos)})
+        .then((todos)=>{res.status(200).json({status:200, message:todos})})
         .catch((err)=>{res.status(404).json(err.message)})
     },
 
 //create todo
     addTodo:(req, res, next)=>{
+       
         const todoAdd = new Todo({
             ...req.body,
-            author: req.user,
+            author: req.body.author,
             createdAt:Date.now(),
         })
         todoAdd.save()
-        .then((todo)=>{res.status(201).json(todo)})
+        .then((todo)=>{res.status(201).json({status:201, message:todo})})
         .catch((err)=>{res.status(409).json(err.message)})
     },
 //read todo
     getOneTodo:(req, res, next)=>{
         const idTodo = req.params.id;
         Todo.findOne({_id: idTodo})
-        .then((todo)=>{res.status(200).json(todo)})
+        .then((todo)=>{res.status(200).json({status:200, message:todos})})
         .catch((err)=>{res.status(400).json(err.message)}) 
     },
 
@@ -39,7 +40,7 @@ module.exports={
             if(err){
                 return res.status(500).json({message: err.message})
             }
-            return res.status(200).json({message: `la tache ${todo.todoName} a été modifiée!`})
+            return res.status(200).json({status:200, message: `la tache ${todo.todoName} a été modifiée!`})
         })
       },
 
@@ -49,7 +50,7 @@ module.exports={
         if (!mongoose.Types.ObjectId.isValid(idTodo)) return res.status(404).send(`nous n'avont pas trouvé la tache N°: ${idTodo}`);
       
         Todo.findByIdAndRemove(idTodo)
-        .then((todo) =>{res.status(200).json({message: `la tache ${todo.todoName} a été supprimée!`})} )
+        .then((todo) =>{res.status(200).json({status:200, message: `la tache ${todo.todoName} a été supprimée!`})} )
         .catch((err) =>{res.status(500).json({message: err.message})})
     },
 

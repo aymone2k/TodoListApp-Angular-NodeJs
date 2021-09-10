@@ -16,9 +16,11 @@ import { SignUpComponent } from './components/users/sign-up/sign-up.component';
 import { HomeComponent } from './view/home/home.component';
 import { NotFoundComponent } from './view/not-found/not-found.component';
 import { TodoModalComponent } from './view/todo-modal/todo-modal.component';
+import { WelcomeComponent } from './view/welcome/welcome.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
+  {path:'welcome', component: WelcomeComponent},
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'edit-profil/:id', component: EditProfilComponent},

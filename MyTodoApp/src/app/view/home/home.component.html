@@ -3,7 +3,7 @@
 
 <div class="card">
 
-  <div class="card-body">
+  <div class="card-body" *ngIf ="!isAuth">
     <h5 class="card-title"> Veuillez vous connecter pour accéder à l'application</h5>
 
     <div class="card-body">
@@ -20,4 +20,12 @@
 
     </div>
   </div>
+  <div class="card" *ngIf ="isAuth">
+
+    <h4>Bonjour {{user}}</h4>
+
+    <app-todos></app-todos>
+
+    <app-list-category></app-list-category>
+
 </div>

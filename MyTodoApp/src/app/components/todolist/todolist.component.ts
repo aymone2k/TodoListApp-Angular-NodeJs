@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./todolist.component.css']
 })
 export class TodolistComponent implements OnInit, OnDestroy {
-  today!:Date;
+
   todos: Todo[] = [];
   todoSub !: Subscription;
   constructor(private todoService: TodoService,
@@ -18,7 +18,7 @@ export class TodolistComponent implements OnInit, OnDestroy {
               ) { }
 
   ngOnInit(): void {
-    this.today = this.todoService.today;
+
     this.todoSub = this.todoService.todoSubject
                             .subscribe((todos: Todo[]) => {
                                   this.todos = todos

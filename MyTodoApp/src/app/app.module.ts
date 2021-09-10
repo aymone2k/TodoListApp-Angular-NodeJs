@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from './services/category.service';
 import { TodoService } from './services/todo.service';
 import { HeaderPageComponent } from './view/header-page/header-page.component';
+import { WelcomeComponent } from './view/welcome/welcome.component';
 
 
 
@@ -54,6 +55,7 @@ import { HeaderPageComponent } from './view/header-page/header-page.component';
     SignInComponent,
     CategoriesComponent,
     HeaderPageComponent,
+    WelcomeComponent,
 
 
   ],

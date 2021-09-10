@@ -12,6 +12,7 @@ import { User } from '../models/user.model';
 export class UserService {
   api = environment.api;
   token: string = '';
+  user :string = '';
   author:string = '';
   isAuth$ = new BehaviorSubject<boolean>(false);
 
@@ -29,6 +30,7 @@ initAuth(){
       if(data.id && data.token){
 
         this.author = data.id;
+        this.user = data.name;
         this.token = data.token;
         this.isAuth$.next(true);
       }
