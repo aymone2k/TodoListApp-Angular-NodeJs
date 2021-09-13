@@ -8,8 +8,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  user:string = "";
  isAuth:boolean = true;
+ kocxyImage: any = "../assets/images/kocxy.png";
   constructor(private userService: UserService) {
 
    }
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
       (bool: boolean)=>{
         this.isAuth = bool
       } )
+      this.user = this.userService.user
    }
 
   logout(){

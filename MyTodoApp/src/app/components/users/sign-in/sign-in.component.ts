@@ -36,7 +36,7 @@ signInForm !: FormGroup;
     const password = this.signInForm.value.password;
     this.userService.getUserToServer(email, password).then(
       ()=>{
-        this.router.navigate(['/todolist']);
+        this.router.navigate(['/welcome']);
       }
     ).catch(
       (err)=>{

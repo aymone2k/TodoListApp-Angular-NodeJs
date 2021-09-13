@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit, OnDestroy {
-  today!:Date;
+
   todos: Todo[] = [];
   userId:string="";
   author: string ="";
@@ -22,7 +22,7 @@ export class TodosComponent implements OnInit, OnDestroy {
                 ) { }
 
     ngOnInit(): void {
-      this.today = this.todoService.today;
+
       this.todoSub = this.todoService.todoSubject
                               .subscribe(
                                 (todos: Todo[]) => {

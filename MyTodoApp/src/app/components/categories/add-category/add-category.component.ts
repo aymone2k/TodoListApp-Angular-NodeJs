@@ -4,7 +4,7 @@ import { Category } from 'src/app/models/category.model';
 import { Color } from 'src/app/models/color.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
-import { COLORS } from 'src/color-data';
+import { COLORS } from 'src/assets/data/color-data';
 
 @Component({
   selector: 'app-add-category',

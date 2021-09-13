@@ -4,6 +4,7 @@ import { AddCategoryComponent } from './components/categories/add-category/add-c
 import { CategoriesComponent } from './components/categories/categories.component';
 import { EditCategoryComponent } from './components/categories/edit-category/edit-category.component';
 import { ListCategoryComponent } from './components/categories/list-category/list-category.component';
+import { AddTodoComponent } from './components/todolist/add-todo/add-todo.component';
 
 import { DetailTodoComponent } from './components/todolist/detail-todo/detail-todo.component';
 import { EditTodoComponent } from './components/todolist/edit-todo/edit-todo.component';
@@ -23,12 +24,14 @@ const routes: Routes = [
   {path:'welcome', component: WelcomeComponent},
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
+  {path: 'add-todo', component: AddTodoComponent},
   {path: 'edit-profil/:id', component: EditProfilComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'todolist', component: TodolistComponent},
   {path: 'todo-modal/:id', component: TodoModalComponent},
   {path: 'edit-todo/:id', component: EditTodoComponent},
   {path: 'detail-todo/:id', component: DetailTodoComponent},
+  {path: 'add-category', component: AddCategoryComponent},
   {path: 'categories', component: CategoriesComponent},
   {path:'edit-category/:id', component: EditCategoryComponent},
   {path: 'not-found', component:NotFoundComponent },

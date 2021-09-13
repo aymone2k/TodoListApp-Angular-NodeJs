@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./header-page.component.css']
 })
 export class HeaderPageComponent implements OnInit {
+  kocxyImage: any = "../assets/images/kocxy.png";
 @Input()page!:string;
   constructor() { }
 

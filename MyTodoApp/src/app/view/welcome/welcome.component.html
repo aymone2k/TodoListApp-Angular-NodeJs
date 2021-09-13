@@ -1,13 +1,22 @@
 <app-header-page page="welcome"></app-header-page>
 
-<div class="card">
+<div class="container-fluid ">
+  <div class="row justify-content-center">
+  <div class="card " style="width: 24rem;">
+    <h5 class="card-title align-items-center mb-1 mt-1" >Bonjour  </h5>
+    <h6 class="card-title align-items-center mb-4 mt-1" >{{user}}, </h6>
+    <img [src]="kocxyImage"  class="card-img-top" alt="...">
+    <div class="card-body">
+      <p class="card-text">Aujourd'hui le {{today|date:'fullDate'}},</p>
 
-  <div class="card-body">
-    <h5 class="card-title">cette appli permet de créer une liste de tache</h5>
-
-<p>s'affichera en modal</p>
-
-    <div>
-
+      <p class="card-text">Vous avez {{todoNumber}} tâches à realiser dans votre liste.</p>
+      <div class="row justify-content-center">
+      <a class="btn btn-info" routerLink="/add-todo">ajouter une tache</a>
+      <a class="btn btn-secondary" routerLink="/add-category">ajouter une catégorie</a>
+    </div>
     </div>
   </div>
+</div>
+</div>
+
+
