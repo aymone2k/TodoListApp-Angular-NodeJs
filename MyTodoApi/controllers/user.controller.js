@@ -21,11 +21,11 @@ module.exports={
             }
 
             const accessToken = jwt.sign({user_id: user._id,email: user.email}, process.env.JWT_TOKEN_SECRET)
-            res.status(200).send({token: accessToken ,name: user.name, id: user._id })
+            res.status(200).send({token: accessToken ,name: user.name, id: user._id, image: user.image , email: user.email})
 
         } catch (err){ 
             res.status(500).json({message: err.message})
-        }},
+        }}, 
         
       
 //SignUp

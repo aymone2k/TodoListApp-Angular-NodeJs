@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const categoryTodoController = require('../controllers/categoryTodo.controller')
-
+const auth = require('../middleware/auth');
 //get categoryTodoList d'un author
-router.get('/:idAuthor', categoryTodoController.categoryTodoList);
+router.get('/:idAuthor',auth, categoryTodoController.categoryTodoList);
 //get categoryTodo
-router.get('/:id ', categoryTodoController.getCategoryTodo);
+router.get('/:id ',auth, categoryTodoController.getCategoryTodo);
 //create categoryTodo
-router.post('/', categoryTodoController.addCategoryTodo);
+router.post('/',auth, categoryTodoController.addCategoryTodo);
 //update categoryTodo
-router.put('/:id', categoryTodoController.updateCategoryTodo);
+router.put('/:id',auth, categoryTodoController.updateCategoryTodo);
 
 
 module.exports = router;  
