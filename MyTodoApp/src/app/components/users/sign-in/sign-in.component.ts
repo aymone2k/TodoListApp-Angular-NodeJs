@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class SignInComponent implements OnInit {
 errorMessage!: string;
 signInForm !: FormGroup;
+isLoading:boolean= false;
 
   constructor(private userService : UserService,
               private formBuilder : FormBuilder,
@@ -32,14 +33,18 @@ signInForm !: FormGroup;
   }
 
   onSignIn(){
+    this.isLoading=true;
     const email = this.signInForm.value.email;
     const password = this.signInForm.value.password;
-    this.userService.getUserToServer(email, password).then(
+    this.userService.getUserToServer(email, password)
+    .then(
       ()=>{
+        this.isLoading =false;
         this.router.navigate(['/welcome']);
       }
     ).catch(
       (err)=>{
+        this.isLoading =false;
         this.errorMessage = err.message;
 
       })

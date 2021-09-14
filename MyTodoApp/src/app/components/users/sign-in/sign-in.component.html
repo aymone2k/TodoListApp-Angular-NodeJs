@@ -1,7 +1,9 @@
 <app-header-page page="Connexion"></app-header-page>
 <div class="container-sm col-6">
+
 <h4>Je me connecte</h4>
-<form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+<mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading"><form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
     <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
   <div class="mb-3" >
     <label >Adresse Email *:</label>
@@ -32,5 +34,6 @@
   <div class="border-top">
       <a routerLink="/signup" class="no-account">Pas encore de compte? cliquez pour créer un compte </a>
   </div>
+</div>
 </div>
 </div>

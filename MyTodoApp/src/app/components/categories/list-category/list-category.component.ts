@@ -15,7 +15,7 @@ import { COLORS } from 'src/assets/data/color-data';
 export class ListCategoryComponent implements OnInit ,OnDestroy{
 
 
-
+isLoading:boolean=false;
   colors: Color[] = COLORS;
   categories: Category[] =[];
   author: string ="";
@@ -25,12 +25,15 @@ export class ListCategoryComponent implements OnInit ,OnDestroy{
   constructor(private categoryService: CategoryService , private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
-
+this.isLoading=true;
       this.categoriesSub = this.categoryService.categoriesSubject
                             .subscribe(
                               (value:any[])=>{
-                                 this.categories = value },
+                                this.isLoading=false;
+                                 this.categories = value
+                                },
                               (error)=>{
+                                this.isLoading=true;
                                 console.log("une erreur: "+error)},
                               ()=>{
                                 console.log('observable complété!')});

@@ -11,6 +11,7 @@ import { EditTodoComponent } from './components/todolist/edit-todo/edit-todo.com
 import { TodolistComponent } from './components/todolist/todolist.component';
 import { TodosComponent } from './components/todolist/todos/todos.component';
 import { EditProfilComponent } from './components/users/edit-profil/edit-profil.component';
+import { ProfilComponent } from './components/users/profil/profil.component';
 import { ResetPasswordComponent } from './components/users/reset-password/reset-password.component';
 import { SignInComponent } from './components/users/sign-in/sign-in.component';
 import { SignUpComponent } from './components/users/sign-up/sign-up.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'add-todo', component: AddTodoComponent},
+  {path: 'profil/:id', component: ProfilComponent},
   {path: 'edit-profil/:id', component: EditProfilComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'todolist', component: TodolistComponent},

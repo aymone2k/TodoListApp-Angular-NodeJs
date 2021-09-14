@@ -13,6 +13,8 @@ export class UserService {
   api = environment.api;
   token: string = '';
   user :string = '';
+  userEmail :string = '';
+  userImage :string = '';
   author:string = '';
   isAuth$ = new BehaviorSubject<boolean>(false);
 
@@ -21,14 +23,15 @@ export class UserService {
               private router: Router) {
     this.initAuth();
   }
-//pour verifier si on a des données en local
+//verif si on a des données en local
 initAuth(){
   if(typeof localStorage !== "undefined"){
     const data = JSON.parse(localStorage.getItem('userLogin')||'{}');
     if(data){
-      console.log(data);
+      console.log('data:', data);
       if(data.id && data.token){
-
+        this.userEmail = data.email;
+        this.userImage = data.image;
         this.author = data.id;
         this.user = data.name;
         this.token = data.token;
@@ -54,13 +57,7 @@ initAuth(){
               console.log(signupData)
               if(signupData.status === 201){
                 resolve(signupData)
-             /*  this.getUserToServer(user.email, user.password)
-                .then(()=>{
-                  resolve(true);})
-                .catch(err=>{reject(err)})
-              }else{
-                reject(signupData.message)
-              } */
+
             }
               },
             (error)=>{
@@ -85,7 +82,11 @@ initAuth(){
       this.httpClient.put(this.api+'/user/updateuser/' +id, userData).subscribe(
         (data:Data)=>{
           if(data.status === 200){
-            resolve(data);
+            this.userEmail = data.email;
+             this.author = data.id;
+        this.userImage = data.image;
+        console.log('dataUpdate:', data);
+            this.isAuth$.next(false);
           }else{
             reject(data);
           }
@@ -105,9 +106,11 @@ getUserToServer(email:string, password: string){
   return new Promise((resolve, reject)=>{
     this.httpClient.post(this.api+'/user/signin', {email: email, password: password}).subscribe(
       (authData:Data)=>{
+        this.userEmail = authData.email;
         this.token = authData.token;
         this.author = authData.id;
-        console.log(authData);
+        this.userImage = authData.image;
+        console.log('authdata:', authData);
         this.isAuth$.next(true);
         //save authData in localStorage
           if(typeof localStorage !== "undefined"){

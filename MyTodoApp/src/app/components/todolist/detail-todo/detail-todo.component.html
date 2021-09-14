@@ -1,2 +1,15 @@
-<app-header-page page="Détail de la tache"></app-header-page>
-<p>detail-todo works!</p>
+<app-header-page page="Détail de ma tache"></app-header-page>
+<div class="container">
+
+  <h4>{{todo.todoName}}</h4>
+  <h6>{{todo.todoStatus}}</h6>
+  <p>{{todo.todoDescription}}</p>
+  <p>{{todo.createdAt}}</p>
+  <p>{{todo.category}}</p>
+
+  <button routerLink="/edit-todo/:id">Modifier</button>
+
+  <div>
+    <a routerLink="/todolist" class="back">retour </a>
+</div>
+</div>

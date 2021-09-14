@@ -16,6 +16,7 @@ export class SignUpComponent implements OnInit {
   message!:string;
   signUpForm !: FormGroup;
   imagePreview: string ="";
+  isLoading :boolean = false;
 
   constructor(private formBuilder:FormBuilder,
               private userService: UserService,
@@ -67,6 +68,7 @@ uploadImage(event: any){
 
 
   onSignUp(){
+    this.isLoading = true;
   const newUser = new User();
    newUser.name = this.signUpForm.get('name')?.value;
    newUser.email = this.signUpForm.get('email')?.value;
@@ -78,12 +80,14 @@ uploadImage(event: any){
     this.userService.addUserToServer(newUser, this.signUpForm.value.image)
     .then(
       (data: any)=>{
+        this.isLoading = false;
         console.log(data)
         this.message = data.message
          // this.router.navigate(["/signin"]);
       })
       .catch(
         (error)=>{
+          this.isLoading =false;
           this.errorMessage = error.message;
         }
       );

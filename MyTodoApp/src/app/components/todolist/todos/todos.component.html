@@ -1,6 +1,7 @@
 <div class="container mt-1">
   <h5> Ma liste</h5>
-<div class="container mt-2">
+  <mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading" class="container mt-2">
 
 <div *ngIf="todos.length == 0">
   Pas de taches saisies
@@ -16,7 +17,8 @@
      <h3>{{todo.category}}</h3>
       <h3>{{todo.author}}</h3>
       <h3>{{todo.createdAt|date}}</h3>
-
+<button routerLink="/detail-todo/:id">détail</button>
+<button>{{todo.todoStatus}}</button>
     </div>
       {{todo|json}}
     </li>

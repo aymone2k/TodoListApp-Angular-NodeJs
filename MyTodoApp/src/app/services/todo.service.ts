@@ -23,11 +23,6 @@ export class TodoService {
   }
 
 
-
-  getUserTodo(){
-    // methode pour reccup l'author sera implémentée après gestion du compte user
-  }
-
   addTodo(todo : Todo){
     this.todos.push(todo);
     this.emitTodos();

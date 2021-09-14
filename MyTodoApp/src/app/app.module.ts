@@ -28,7 +28,9 @@ import { CategoryService } from './services/category.service';
 import { TodoService } from './services/todo.service';
 import { HeaderPageComponent } from './view/header-page/header-page.component';
 import { WelcomeComponent } from './view/welcome/welcome.component';
-
+import { ProfilComponent } from './components/users/profil/profil.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -56,6 +58,7 @@ import { WelcomeComponent } from './view/welcome/welcome.component';
     CategoriesComponent,
     HeaderPageComponent,
     WelcomeComponent,
+    ProfilComponent,
 
 
   ],
@@ -65,6 +68,8 @@ import { WelcomeComponent } from './view/welcome/welcome.component';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
   ],
 
   providers: [

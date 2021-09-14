@@ -5,14 +5,14 @@ const auth = require('../middleware/auth');
 
 
 //get todoList d'un author
-router.get('/:idAuthor',auth, todoController.todoList);
+router.get('/:idAuthor', todoController.todoList);
 //create todo
-router.post('/',auth, todoController.addTodo)
+router.post('/', todoController.addTodo)
 //read todo
-router.get('/:id',auth, todoController.getOneTodo)
+router.get('/:id', todoController.getOneTodo)
 //update todo
-router.put('/:id',auth, todoController.updateTodo)
+router.put('/:id', todoController.updateTodo)
 //delete todo
-router.delete('/:id',auth, todoController.deleteTodo)
+router.delete('/:id', todoController.deleteTodo)
 
 module.exports = router;   
