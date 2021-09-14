@@ -7,7 +7,7 @@
   <p>{{todo.createdAt}}</p>
   <p>{{todo.category}}</p>
 
-  <button routerLink="/edit-todo/:id">Modifier</button>
+  <button [routerLink]="['/edit-todo', todo._id]">Modifier</button>
 
   <div>
     <a routerLink="/todolist" class="back">retour </a>
