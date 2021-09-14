@@ -9,7 +9,7 @@ router.get('/:idAuthor', todoController.todoList);
 //create todo
 router.post('/', todoController.addTodo)
 //read todo
-router.get('/:id', todoController.getOneTodo)
+router.get('/byid/:id', todoController.getOneTodo)
 //update todo
 router.put('/:id', todoController.updateTodo)
 //delete todo

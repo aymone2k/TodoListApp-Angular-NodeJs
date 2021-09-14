@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -12,9 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TodosComponent implements OnInit, OnDestroy {
 isLoading:boolean=false;
+
   todos: Todo[] = [];
   userId:string="";
   author: string ="";
+ idCatg: string="";
   todoSub !: Subscription;
     constructor(private todoService: TodoService,
                 private userService: UserService,
@@ -28,18 +30,19 @@ this.isLoading=true;
                                 (todos: Todo[]) => {
                                   this.isLoading=false;
                                     this.todos = todos;
+
                               },
                               (error)=> {
                                 this.isLoading = false;
                                 console.log(error)}
 
                               );
-      //this.todoService.emitTodos();
 
       this.author = this.userService.author;
-
+      //this.idCatg = this.todo.category
       this.todoService.getTodoFromServer(this.author);
-
+     // this.categoryService.getCategoryByIdToServer(this.idCatg);
+//revoir pour reccupe la catg
                             }
 
     ngOnDestroy(): void {

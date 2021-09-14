@@ -94,8 +94,6 @@ export class CategoryService {
           }else{
             reject(data.message);
           }
-     //    this.category = catReccup,
-       //  this.categorySubject.next(this.category);;
 
         },
          (error)=>{

@@ -59,6 +59,7 @@ export class TodoService {
         (data: Data)=>{
           if(data.status === 200){
             this.todos = data.message;
+            console.log(this.todos)
             this.emitTodos();
           }else{
             console.log(data)
@@ -75,7 +76,7 @@ export class TodoService {
 
   getTodoByIdFromServer(id: string){
     return new Promise((resolve, reject)=>{
-      this.httpClient.get(this.api+'/todo/'+id)
+      this.httpClient.get(this.api+'/todo/byid/'+id)
         .subscribe(
            (data: Data)=>{
               if(data.status === 200){

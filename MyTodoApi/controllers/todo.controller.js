@@ -26,7 +26,7 @@ module.exports={
     getOneTodo:(req, res, next)=>{
         const idTodo = req.params.id;
         Todo.findOne({_id: idTodo})
-        .then((todo)=>{res.status(200).json({status:200, message:todos})})
+        .then((todo)=>{res.status(200).json({status:200, message:todo})})
         .catch((err)=>{res.status(400).json(err.message)}) 
     },
 

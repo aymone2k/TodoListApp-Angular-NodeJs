@@ -24,7 +24,9 @@
 
     <select class="form-select"  formControlName="category" >
 
-      <option *ngFor="let catg of categories"[value]="catg._id">{{catg.categoryName}}, {{catg._id}}, {{catg.categoryColor}}</option>
+      <option *ngFor="let catg of categories"[value]="catg._id" [ngStyle]="{'background':catg.categoryColor}" class="h6">
+     {{catg.categoryName}}, {{catg._id}}
+      </option>
 
     </select>
     <button type="button" (click)="onCreateCategory()">ajouter une nouvelle catégorie</button>
