@@ -12,6 +12,7 @@ export class SignInComponent implements OnInit {
 errorMessage!: string;
 signInForm !: FormGroup;
 isLoading:boolean= false;
+fieldTextType1:boolean = false;
 
   constructor(private userService : UserService,
               private formBuilder : FormBuilder,
@@ -51,4 +52,7 @@ isLoading:boolean= false;
 
   }
 
+  toogleFieldText1(){
+    this.fieldTextType1 =!this.fieldTextType1;
+  }
 }

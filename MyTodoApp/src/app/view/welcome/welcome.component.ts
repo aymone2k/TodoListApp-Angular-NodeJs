@@ -13,9 +13,13 @@ import { UserService } from 'src/app/services/user.service';
 export class WelcomeComponent implements OnInit {
   today:number = Date.now();
   user: string ="";
+  userId: string ="";
   todos:Todo[] = [];
+  todoFilter:any[] = [];
   todoNumber: number =0;
-  todoSub !: Subscription;
+  todoNumberTodo: number =0;//nbr de todo à réaliser
+  todoNumberDone: number =0;//nbr de todo déjà réaliser
+
   kocxyImage: any = "../assets/images/kocxy.png";
 
 
@@ -25,16 +29,20 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.today;
     this.user = this.userService.user
-    this.todoSub = this.todoService.todoSubject
-    .subscribe((todos: Todo[]) => {
-          this.todos = todos
+    this.userId = this.userService.author
 
-    },
-    (error)=> {console.log(error)},
-    ()=>{console.log("Observable complété")}
-    )
+    this.todoService.getTodoByIdFromServer(this.userId)
+                      .then((value:any)=>{
+                        this.todos = value;
+    console.log(this.todos)
+    this.todoNumber = this.todos.length
+
+    this.todoNumberTodo = this.todos.filter(todo=>todo.todoStatus==false).length
+    this.todoNumberDone = this.todos.filter(todo=>todo.todoStatus==true).length
+    console.log(this.todoNumberTodo)
+                          })
     this.todoService.emitTodos();
-this.todoNumber = this.todos.length
+
 // rajouter pour prendre en compte uniquement les taches encours (status)
 
 }

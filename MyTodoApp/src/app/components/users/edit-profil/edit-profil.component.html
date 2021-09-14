@@ -1,6 +1,12 @@
+<div class="container mt-3 mb-5">
+  <div class="container mt-3 ">
+  <div class="col-12 mb-3">
+    <div class="section-title text-center mb-15">
+        <h4 class="title text-white text-capitalize text-info bg-info">Modification de mon compte</h4>
+    </div>
+</div>
+</div>
 
-<div class="container">
-<h4>Modification de mon compte</h4>
 <form [formGroup]="editProfilForm" (ngSubmit)="onEditProfil()">
   <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
   <div class="alert alert-success" *ngIf="message"> {{message}}, Veuillez vous connecter avec vos identifiants</div>

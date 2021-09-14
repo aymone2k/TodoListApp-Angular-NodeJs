@@ -107,6 +107,7 @@ getUserToServer(email:string, password: string){
     this.httpClient.post(this.api+'/user/signin', {email: email, password: password}).subscribe(
       (authData:Data)=>{
         this.userEmail = authData.email;
+        this.user = authData.name;
         this.token = authData.token;
         this.author = authData.id;
         this.userImage = authData.image;

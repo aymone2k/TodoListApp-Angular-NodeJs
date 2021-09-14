@@ -8,6 +8,6 @@ router.post('/signin', userController.signIn)
 //SignUp
 router.post('/signup', multerConfig, userController.signUp)
 //UpdateUser
-router.put('/updateuser/:id',auth, multerConfig, userController.updateUser)
+router.put('/:id', multerConfig, userController.updateUser)
 
 module.exports = router; 

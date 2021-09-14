@@ -17,6 +17,9 @@ export class SignUpComponent implements OnInit {
   signUpForm !: FormGroup;
   imagePreview: string ="";
   isLoading :boolean = false;
+  fieldTextType1:boolean = false;
+  fieldTextType2:boolean = false;
+
 
   constructor(private formBuilder:FormBuilder,
               private userService: UserService,
@@ -69,6 +72,7 @@ uploadImage(event: any){
 
   onSignUp(){
     this.isLoading = true;
+
   const newUser = new User();
    newUser.name = this.signUpForm.get('name')?.value;
    newUser.email = this.signUpForm.get('email')?.value;
@@ -94,4 +98,15 @@ uploadImage(event: any){
 
   }
 
+  onResetForm(){
+
+    this.signUpForm.reset();
+  }
+
+  toogleFieldText1(){
+    this.fieldTextType1 =!this.fieldTextType1;
+  }
+  toogleFieldText2(){
+    this.fieldTextType2 =!this.fieldTextType2;
+  }
 }

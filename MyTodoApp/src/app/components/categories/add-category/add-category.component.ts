@@ -17,6 +17,7 @@ export class AddCategoryComponent implements OnInit {
   colors: Color[] = COLORS;
   author: string ="";
   errorMessage: string = "";
+my: string = "";
 
   constructor(private categoryService: CategoryService,
               private userService: UserService) { }
@@ -24,6 +25,12 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.author = this.userService.author;
   }
+
+  getColor(color:any){
+
+
+    return color    }
+
 
   onSubmit(form: NgForm): void{
     const categoryName = form.value['categoryName'];
