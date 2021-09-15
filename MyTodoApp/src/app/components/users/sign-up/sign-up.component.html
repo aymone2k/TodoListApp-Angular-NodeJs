@@ -1,8 +1,8 @@
 
-<app-header-page page="Création d'un compte"></app-header-page>
+<app-header-page page="Création compte"></app-header-page>
 
 <div class="container-sm col-6">
-<h4 class="text-center m-5">Je Créé Mon Compte</h4>
+
 <mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
 <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
@@ -79,13 +79,14 @@
 
   </div>
 
-  <div class="col-12">
-    <div class="border-top">
-        <a routerLink="/signin" class="no-account h6">J'ai déjà un compte, je me connecte ici</a>
-    </div>
-</div>
   <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Créer mon compte</button>
   <button class="btn btn-secondary" type="reset" (click)="onResetForm()">Cancel</button>
 </form>
+</div>
+
+<div class="col-12">
+  <div class="border-top mt-4">
+      <a routerLink="/signin" class="no-account h6">J'ai déjà un compte, je me connecte ici</a>
+  </div>
 </div>
 </div>

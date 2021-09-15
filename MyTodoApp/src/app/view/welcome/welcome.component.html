@@ -1,12 +1,13 @@
 <app-header-page page="welcome"></app-header-page>
-
-<div class="container-fluid ">
+<mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
+<div  *ngIf="!isLoading" class="container-fluid ">
   <div class="row justify-content-center">
   <div class="card " style="width: 24rem;">
     <h5 class="card-title align-items-center mb-1 mt-1" >Bonjour , </h5>
     <h6 class="card-title align-items-center mb-5 mt-1" >{{user}}</h6>
     <img [src]="kocxyImage"  class="card-img-top  mb-2" alt="...">
-    <div class="card-body">
+
+    <div class="card-body"  >
       <p class="card-text">Aujourd'hui le {{today|date:'fullDate'}},</p>
 
       <p class="card-text">Vous avez dans votre liste {{todoNumber}} taches dont:</p>

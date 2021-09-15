@@ -1,7 +1,7 @@
 <app-header-page page="Connexion"></app-header-page>
 <div class="container-sm col-6">
 
-<h4>Je me connecte</h4>
+
 <mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
   <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
@@ -15,10 +15,10 @@
       <div *ngIf="controlForm.email.errors">cet email est invalide</div>
     </div>
 
-    <div class="col-md-3 mt-3">
+    <div class="md-3 mt-3">
       <label class="h6">Password : <span *ngIf="controlForm.password.errors">
         *  </span></label>
-        <div class="input-group mb-3 ">
+        <div class="input-group ">
           <input [type]="fieldTextType1 ?'text':'password'" class="form-control" formControlName="password">
           <div class="input-group-prepend">
             <button type="button"    (click)="toogleFieldText1() " class="input-group-text theme-btn--dark1 btn--md show-password">show</button>
@@ -29,12 +29,17 @@
           </div>
        </div>
        </div>
+       <div class="col">
+        <div class="border-top">
+            <a  routerLink="/reset-password" class=" ">Mot de passe oublié </a>
+        </div>
+      </div>
        </div>
        <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Me connecter</button>
 </form>
 <div class="col-12">
-  <div class="border-top">
-      <a  routerLink="/signup" class="h6 no-account">Pas encore de compte? <br/>Cliquez pour créer un compte </a>
+  <div class="border-top mt-4">
+      <a  routerLink="/signup" class="h6 no-account">Pas encore de compte? Cliquez pour créer un compte </a>
   </div>
 </div>
 </div>

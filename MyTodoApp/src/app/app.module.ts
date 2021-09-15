@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './view/header/header.component';
 import { FooterComponent } from './view/footer/footer.component';
 import { HomeComponent } from './view/home/home.component';
-import { TodoModalComponent } from './view/todo-modal/todo-modal.component';
+
 import { NotFoundComponent } from './view/not-found/not-found.component';
 import { AddCategoryComponent } from './components/categories/add-category/add-category.component';
 import { EditCategoryComponent } from './components/categories/edit-category/edit-category.component';
@@ -41,7 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    TodoModalComponent,
+
     NotFoundComponent,
     AddCategoryComponent,
     EditCategoryComponent,

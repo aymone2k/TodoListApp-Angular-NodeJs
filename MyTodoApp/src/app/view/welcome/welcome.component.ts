@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
 import { TodoService } from 'src/app/services/todo.service';
@@ -10,8 +10,10 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
+  isLoading = false;
   today:number = Date.now();
+  author: string ="";
   user: string ="";
   userId: string ="";
   todos:Todo[] = [];
@@ -22,6 +24,7 @@ export class WelcomeComponent implements OnInit {
 
   kocxyImage: any = "../assets/images/kocxy.png";
 
+  todoSub !: Subscription;
 
   constructor(private userService: UserService,
               private todoService: TodoService) { }
@@ -30,22 +33,30 @@ export class WelcomeComponent implements OnInit {
     this.today;
     this.user = this.userService.user
     this.userId = this.userService.author
+    this.isLoading = true;
+  this.todoSub = this.todoService.todoSubject
+                              .subscribe(
+                                (todos: Todo[]) => {
+                                  this.isLoading=false;
+                                    this.todos = todos;
+                                    console.log(todos)
+                                    this.todoNumber = this.todos.length
 
-    this.todoService.getTodoByIdFromServer(this.userId)
-                      .then((value:any)=>{
-                        this.todos = value;
-    console.log(this.todos)
-    this.todoNumber = this.todos.length
+                                    this.todoNumberTodo = this.todos.filter(todo=>todo.todoStatus==false).length
+                                    this.todoNumberDone = this.todos.filter(todo=>todo.todoStatus==true).length
+                                    console.log(this.todoNumberTodo)
+                              },
+                              (error)=> {
+                                this.isLoading = false;
+                                console.log(error)}
 
-    this.todoNumberTodo = this.todos.filter(todo=>todo.todoStatus==false).length
-    this.todoNumberDone = this.todos.filter(todo=>todo.todoStatus==true).length
-    console.log(this.todoNumberTodo)
-                          })
-    this.todoService.emitTodos();
+                              );
+    this.todoService.getTodoFromServer(this.userId)
 
-// rajouter pour prendre en compte uniquement les taches encours (status)
 
 }
-
+ngOnDestroy(): void {
+  this.todoSub.unsubscribe();
+}
 
 }

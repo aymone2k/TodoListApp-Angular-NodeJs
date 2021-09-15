@@ -7,8 +7,8 @@
   <p>{{todo.createdAt}}</p>
   <p>{{todo.category}}</p>
 
-  <button [routerLink]="['/edit-todo', todo._id]">Modifier</button>
-
+  <button type="button" class="btn btn-warning"[routerLink]="['/edit-todo', todo._id]">Modifier</button>
+  <button type="button" class="btn btn-danger" (click)="deleteTodo()">Supprimer</button>
   <div>
     <a routerLink="/todolist" class="back">retour </a>
 </div>

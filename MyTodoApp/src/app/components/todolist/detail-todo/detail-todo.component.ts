@@ -26,4 +26,9 @@ todo!:Todo ;
       )
   }
 
+  deleteTodo(){
+//configurer la suppression
+    console.log("tache supprimée")
+  }
+
 }

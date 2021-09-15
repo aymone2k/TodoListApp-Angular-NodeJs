@@ -17,7 +17,7 @@ import { SignInComponent } from './components/users/sign-in/sign-in.component';
 import { SignUpComponent } from './components/users/sign-up/sign-up.component';
 import { HomeComponent } from './view/home/home.component';
 import { NotFoundComponent } from './view/not-found/not-found.component';
-import { TodoModalComponent } from './view/todo-modal/todo-modal.component';
+
 import { WelcomeComponent } from './view/welcome/welcome.component';
 
 const routes: Routes = [
@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'edit-profil/:id', component: EditProfilComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'todolist', component: TodolistComponent},
-  {path: 'todo-modal/:id', component: TodoModalComponent},
+
   {path: 'edit-todo/:id', component: EditTodoComponent},
   {path: 'detail-todo/:id', component: DetailTodoComponent},
   {path: 'add-category', component: AddCategoryComponent},
