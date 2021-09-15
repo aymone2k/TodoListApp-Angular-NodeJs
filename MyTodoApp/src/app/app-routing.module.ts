@@ -15,27 +15,29 @@ import { ProfilComponent } from './components/users/profil/profil.component';
 import { ResetPasswordComponent } from './components/users/reset-password/reset-password.component';
 import { SignInComponent } from './components/users/sign-in/sign-in.component';
 import { SignUpComponent } from './components/users/sign-up/sign-up.component';
+import { AuthGuard } from './services/auth.guard';
 import { HomeComponent } from './view/home/home.component';
 import { NotFoundComponent } from './view/not-found/not-found.component';
 
 import { WelcomeComponent } from './view/welcome/welcome.component';
 
 const routes: Routes = [
+
   {path:'home', component: HomeComponent},
   {path:'welcome', component: WelcomeComponent},
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
-  {path: 'add-todo', component: AddTodoComponent},
-  {path: 'profil/:id', component: ProfilComponent},
-  {path: 'edit-profil/:id', component: EditProfilComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'todolist', component: TodolistComponent},
-
-  {path: 'edit-todo/:id', component: EditTodoComponent},
-  {path: 'detail-todo/:id', component: DetailTodoComponent},
-  {path: 'add-category', component: AddCategoryComponent},
-  {path: 'categories', component: CategoriesComponent},
-  {path:'edit-category/:id', component: EditCategoryComponent},
+  {path: 'add-todo', component: AddTodoComponent, canActivate: [AuthGuard]},
+  {path: 'profil/:id', component: ProfilComponent, canActivate: [AuthGuard]},
+  {path: 'edit-profil/:id', component: EditProfilComponent, canActivate: [AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
+  {path: 'todolist', component: TodolistComponent, canActivate: [AuthGuard]},
+  {path: 'todos', component: TodosComponent, canActivate: [AuthGuard]},
+  {path: 'edit-todo/:id', component: EditTodoComponent, canActivate: [AuthGuard]},
+  {path: 'detail-todo/:id', component: DetailTodoComponent, canActivate: [AuthGuard]},
+  {path: 'add-category', component: AddCategoryComponent, canActivate: [AuthGuard]},
+  {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard]},
+  {path:'edit-category/:id', component: EditCategoryComponent, canActivate: [AuthGuard]},
   {path: 'not-found', component:NotFoundComponent },
   {path: '**', pathMatch:'full', redirectTo:'not-found'}
 ];

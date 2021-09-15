@@ -75,7 +75,8 @@ export class AddTodoComponent implements OnInit {
       .then(
         ()=>{
           this.todoForm.reset();
-        }
+
+               }
       )
       .catch(
         (err)=>{this.errorMessage = err.message;}
