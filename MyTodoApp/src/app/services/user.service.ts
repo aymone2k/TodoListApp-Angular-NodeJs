@@ -126,6 +126,7 @@ getUserToServer(email:string, password: string){
 
 }
 
+//deconnexion
 logout(){
   this.isAuth$.next(false);
   this.author = "";
@@ -134,6 +135,35 @@ logout(){
     localStorage.setItem('userLogin', '')
   }
   this.router.navigate(['/home'])
-}
+};
 
+//envoie du formulaire pour reset password
+sendResetPassword(email: string){
+  return new Promise((resolve, reject)=>{
+    const user = {
+      email:"",
+    }
+    user.email= email;
+   this.httpClient
+   .post(this.api+'/user/forgotpassword', user)
+   .subscribe(
+     (data)=>{
+      resolve(data)
+      console.log(data)
+     },
+     (error)=>{
+       console.log(error.message)
+     }
+
+   )
+
+  })
+};
+
+// mise à jour du password
+updatePassword(password:string, newPassword:string, confirmNewPassword:string){
+  //à configurer
+
+  console.log("new pw")
+  }
 }

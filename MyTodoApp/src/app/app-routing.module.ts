@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'add-todo', component: AddTodoComponent, canActivate: [AuthGuard]},
   {path: 'profil/:id', component: ProfilComponent, canActivate: [AuthGuard]},
   {path: 'edit-profil/:id', component: EditProfilComponent, canActivate: [AuthGuard]},
-  {path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard]},
+  {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'todolist', component: TodolistComponent, canActivate: [AuthGuard]},
   {path: 'todos', component: TodosComponent, canActivate: [AuthGuard]},
   {path: 'edit-todo/:id', component: EditTodoComponent, canActivate: [AuthGuard]},

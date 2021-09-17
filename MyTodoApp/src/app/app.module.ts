@@ -31,6 +31,7 @@ import { WelcomeComponent } from './view/welcome/welcome.component';
 import { ProfilComponent } from './components/users/profil/profil.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { UpdatePasswordComponent } from './components/users/update-password/update-password.component';
 
 
 
@@ -59,6 +60,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HeaderPageComponent,
     WelcomeComponent,
     ProfilComponent,
+    UpdatePasswordComponent,
 
 
   ],

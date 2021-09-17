@@ -27,8 +27,6 @@ my: string = "";
   }
 
   getColor(color:any){
-
-
     return color    }
 
 
