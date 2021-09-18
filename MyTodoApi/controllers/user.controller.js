@@ -117,11 +117,11 @@ module.exports={
                 resetExpires: Date.now() + 3600000
             })
             //ajout du message
-            req.body.message = "<h3> Bonjour "+user.name+"</h3><br>Veuillez cliquer sur ce lien pour reinitialiser votre mot de passe:<br>"+req.protocol+"://"+"4200/update-password/"+token;
+            req.body.message = "<h3> Bonjour "+user.name+"</h3><br>Veuillez cliquer sur ce lien pour reinitialiser votre mot de passe:<br>"+req.protocol+"://"+req.get('origin')+"/update-password/"+token;
             console.log(reset)
             reset.save()
             .then(() =>
-            res.status(201).json({ status: 201, message: 'Veuillez vous connecter avec le mot de passe temporaire reçu par mail' }))
+            res.status(201).json({ status: 201, message: 'Veuillez cliquer sur le lien reçu par mail, afin de réinitialiser votre mot de passe' }))
             .catch(error => res.status(400).json({ message: 'Impossible de reinitialiser votre mot de passe , veuillez essayer ultérieurement'}));
                 
             }
@@ -144,22 +144,24 @@ module.exports={
                 if(!user){
                     return res.status(401).json({status: 401, message: `identifiant incorrect!`})
                 }
-                user.password = password;
-                //attention mdp mis à jour mais pas haché!
+
+                 //mis à jour mais pas haché!
+                user.password = User.generatePasswordHash(password);
+               
 
                     user.save()
                     .then(()=>{
                         res.status(200).json({message:'votre mdp a été mis à jour, vous pouvez vous connecter'})
                     })
                     .catch((err)=>{
-                        console.log(err)
+                        res.status(401).json({message: err.message})
                     });
                     Reset.deleteMany({email: user.email}, (err, message)=>{
                         if(err){
                             console.log(err);
                         }
                         console.log(message);
-                    }); 
+                    });  
                 
             }
             catch (err){ 

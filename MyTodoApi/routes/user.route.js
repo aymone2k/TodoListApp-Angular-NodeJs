@@ -9,7 +9,7 @@ router.post('/signin', userController.signIn)
 //SignUp
 router.post('/signup', multerConfig, userController.signUp)
 //UpdateUser
-router.put('/:id', multerConfig, userController.updateUser)
+router.put('/:id',auth, multerConfig, userController.updateUser)
 
 //Forgot Password
 router.post('/forgotpassword', userController.resetPassword, sendRestMail)
