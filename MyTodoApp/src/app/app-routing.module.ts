@@ -15,6 +15,7 @@ import { ProfilComponent } from './components/users/profil/profil.component';
 import { ResetPasswordComponent } from './components/users/reset-password/reset-password.component';
 import { SignInComponent } from './components/users/sign-in/sign-in.component';
 import { SignUpComponent } from './components/users/sign-up/sign-up.component';
+import { UpdatePasswordComponent } from './components/users/update-password/update-password.component';
 import { AuthGuard } from './services/auth.guard';
 import { HomeComponent } from './view/home/home.component';
 import { NotFoundComponent } from './view/not-found/not-found.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'profil/:id', component: ProfilComponent, canActivate: [AuthGuard]},
   {path: 'edit-profil/:id', component: EditProfilComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent},
+  {path: 'update-password/:id', component: UpdatePasswordComponent},
   {path: 'todolist', component: TodolistComponent, canActivate: [AuthGuard]},
   {path: 'todos', component: TodosComponent, canActivate: [AuthGuard]},
   {path: 'edit-todo/:id', component: EditTodoComponent, canActivate: [AuthGuard]},

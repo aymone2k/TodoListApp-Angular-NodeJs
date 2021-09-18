@@ -4,6 +4,7 @@ import { Data, Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -161,9 +162,25 @@ sendResetPassword(email: string){
 };
 
 // mise à jour du password
-updatePassword(password:string, newPassword:string, confirmNewPassword:string){
-  //à configurer
+updatePassword(password:string, token:string){
+  return new Promise((resolve, reject)=>{
+    this.httpClient.put(this.api+'/user/resetpassword/'+token, {password: password, token:token}).subscribe(
+      (data:Data)=>{
+        if (data.status == 200){
+          resolve(data.message);
+        }else{
+          reject(data);
+        }
+      },
+      (err)=>{
+        reject(err);
+      }
+    )
+  })
 
-  console.log("new pw")
   }
+
+
+
+
 }
