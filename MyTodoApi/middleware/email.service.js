@@ -13,6 +13,7 @@ const sendRestMail = (req, res, next)=>{
            rejectUnauthorized: false,
          }
     });
+    console.log(req.body)
     var message = "<br>Message:"+req.body.message;// a définir
     const mailOptions ={
         from: process.env.EMAIL,

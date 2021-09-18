@@ -100,34 +100,36 @@ module.exports={
     //Forgot Password
 
     resetPassword: async (req,res, next)=>{
-       
-//modification du mdp + renvoi d'un nouveau mdp par mail avec nodemailer
-try{
-    const user = await User.findOne({email: req.body.email})
-    console.log(req.body)
-    if(!user){
-        return res.status(401).json({status: 401, message: `identifiant inconnu`})
-    }
-     //créer un token 
-     const token = randomToken(32);
+            
+        //modification du mdp + renvoi d'un nouveau mdp par mail avec nodemailer
+        try{
+            const user = await User.findOne({email: req.body.email})
+            console.log(req.body)
+            if(!user){
+                return res.status(401).json({status: 401, message: `identifiant inconnu`})
+            }
+            //créer un token 
+            const token = randomToken(32);
 
-    const reset = new Reset({
-        email: req.body.email,
-        resetPasswordToken: token,
-        resetExpires: Date.now() + 3600000
-       })
-       console.log(reset)
-    reset.save()
-     .then(() => res.status(201).json({ status: 201, message: 'Veuillez vous connecter avec le mot de passe temporaire reçu par mail' }))
-    .catch(error => res.status(400).json({ message: 'Impossible de reinitialiser votre mot de passe , veuillez essayer ultérieurement'}));
-          
-    }
-    catch(err){res.status(500).json({message: err.message})}
-    next(); 
-},
+            const reset = new Reset({
+                email: req.body.email,
+                resetPasswordToken: token,
+                resetExpires: Date.now() + 3600000
+            })
+            //ajout du message
+            req.body.message = "<h3> Bonjour "+user.name+"</h3><br>Veuillez cliquer sur ce lien pour reinitialiser votre mot de passe:<br>"+req.protocol+"://"+"4200/update-password/"+token;
+            console.log(reset)
+            reset.save()
+            .then(() =>
+            res.status(201).json({ status: 201, message: 'Veuillez vous connecter avec le mot de passe temporaire reçu par mail' }))
+            .catch(error => res.status(400).json({ message: 'Impossible de reinitialiser votre mot de passe , veuillez essayer ultérieurement'}));
+                
+            }
+            catch(err){res.status(500).json({message: err.message})}
+            next(); 
+        },
     //ResetPassword
-
-    postResetPassword: async (req, res, next)=>{
+    putResetPassword: async (req, res, next)=>{
         const token = req.params.token;
         const password = req.body.password;
         try{
@@ -137,35 +139,35 @@ try{
                 return res.status(401).json({status: 401, message: `veuillez redemander un reset Password`})
             }
             //chercher l'user pour change mdp
-            const user = await User.findOne({username: reset.username})
+          const user = await User.findOne({email: reset.email})
                
                 if(!user){
                     return res.status(401).json({status: 401, message: `identifiant incorrect!`})
                 }
-                user.setPassword(password, (err)=>{
-                    if(err){
-                       
-                        return res.status(401).json({status: 401, message:  'impossible de changer le mdp'})
-                    }
+                user.password = password;
+                //attention mdp mis à jour mais pas haché!
 
                     user.save()
                     .then(()=>{
-                        res.status(201).json({message:'votre mdp a été mis à jour, vous pouvez vous connecter'})
+                        res.status(200).json({message:'votre mdp a été mis à jour, vous pouvez vous connecter'})
                     })
                     .catch((err)=>{
                         console.log(err)
                     });
-                    Reset.deleteMany({username: user.username}, (err, message)=>{
+                    Reset.deleteMany({email: user.email}, (err, message)=>{
                         if(err){
                             console.log(err);
                         }
                         console.log(message);
-                    });
-                })
-            
-            
+                    }); 
+                
             }
             catch (err){ 
                 res.status(500).json({message: err.message})
             }},
+
+
+
+
 }
+

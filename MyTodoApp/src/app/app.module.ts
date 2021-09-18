@@ -32,6 +32,7 @@ import { ProfilComponent } from './components/users/profil/profil.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { UpdatePasswordComponent } from './components/users/update-password/update-password.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 
 
@@ -76,6 +77,11 @@ import { UpdatePasswordComponent } from './components/users/update-password/upda
 
   providers: [
     CategoryService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

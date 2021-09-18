@@ -60,9 +60,10 @@ export class UpdatePasswordComponent implements OnInit {
       this.router.navigate(['/signin'])
     })
  .catch(
-   (err)=>{
+   (error)=>{
    this.isLoading= false;
-   window.alert(err.message);
+   window.alert(error.message);
+   this.router.navigate(['/reset-password']);
  })
   }
   toogleFieldText1(){

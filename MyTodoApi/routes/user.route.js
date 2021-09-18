@@ -15,7 +15,7 @@ router.put('/:id', multerConfig, userController.updateUser)
 router.post('/forgotpassword', userController.resetPassword, sendRestMail)
 
 // Reset Password
-router.post('/resetpassword/:token', userController.postResetPassword);
+router.put('/resetpassword/:token', userController.putResetPassword);
 
 
 module.exports = router; 

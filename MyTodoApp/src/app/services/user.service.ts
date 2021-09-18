@@ -41,7 +41,7 @@ initAuth(){
     }
   }
 }
-//création d'un user
+//création d'un user: Signup
   addUserToServer(user: User, image: File){
     //creation de l'objet userData contenant l'image
         return new Promise((resolve, reject)=>{
@@ -101,7 +101,7 @@ initAuth(){
 
   }
 
-//connection d'un user
+//connection d'un user: signin
 
 getUserToServer(email:string, password: string){
   return new Promise((resolve, reject)=>{
