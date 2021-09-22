@@ -14,27 +14,25 @@
   Pas de taches saisies
 </div>
 <div class="container mt-3 " *ngIf="todos.length !== 0">
-  <ul class="list-group">
+  <div class="list-group">
 
-    <li class="list-group-item" *ngFor="let todo of todos, let i = index">
-      <div class="row align-items-start">
-        <div class="col h4">N°: {{i+1}} </div>
-        <div class="col h4">{{todo.todoName}}</div>
-        <div class="col ">Créée le : {{todo.createdAt|date}}</div>
+    <a [routerLink]="['/detail-todo', todo._id]" class="list-group-item list-group-item-action " *ngFor="let todo of todos, let i = index">
+      <div  class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">N°: {{i+1}} - {{todo.todoName|uppercase}}</h5>
+        <small>Créée le : {{todo.createdAt|date}}</small>
+
         </div>
-      <div class="row align-items-center">
-        <div class="col h6" >Catégorie: {{todo.category}}</div>
 
-    <div class="col">Etat:{{todo.todoStatus}}</div>
-<div clas="col">
-<button [routerLink]="['/detail-todo', todo._id]">détail</button></div>
+        <div class="alert alert-info" *ngIf = "todo.todoStatus=== true" >Terminé</div>
+        <div class="alert alert-warning" *ngIf = "todo.todoStatus=== false" >Encours</div>
+<div>
+  <button class="btn btn-info" [routerLink]="['/detail-todo', todo._id]">Détail</button>
 
-    </div>
-    <div class="row align-items-end">
-      {{todo|json}}
-      </div>
-    </li>
-  </ul>
+</div>
+
+
+    </a>
+  </div>
 </div>
 </div>
 </div>

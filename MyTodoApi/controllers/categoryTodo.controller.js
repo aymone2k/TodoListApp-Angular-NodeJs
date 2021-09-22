@@ -15,8 +15,8 @@ module.exports={
     getCategoryTodo:(req, res, next)=>{
         const idCatg = req.params.id;
         CategoryTodo.findOne({_id: idCatg})
-        .then((category)=>{res.status(200).json({status:200, message:category})})
-        .catch((err)=>{res.status(400).json({message: err.message})})
+        .then((cat)=>{res.status(200).json({status:200, message:cat})})
+        .catch((err)=>{res.status(400).json({message: err.message})}) 
     },
 
 //create categoryTodo

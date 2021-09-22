@@ -24,8 +24,8 @@
 
     <select class="form-select"  formControlName="category" >
 
-      <option *ngFor="let catg of categories"[value]="catg._id" [ngStyle]="{'background':catg.categoryColor}" class="h6">
-     {{catg.categoryName}}, {{catg._id}}
+      <option *ngFor="let catg of categories"[value]="catg._id" [ngStyle]="{'background':catg.categoryColor}" class="h6 text-center">
+     {{catg.categoryName}}
       </option>
 
     </select>

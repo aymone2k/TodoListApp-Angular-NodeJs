@@ -6,8 +6,8 @@
     </div>
 </div>
 </div>
-
-<div class="container-sm col-6">
+<mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
+<div class="container-sm col-6" *ngIf="!isLoading">
 
   <form (ngSubmit)="onSubmit(addCatgForm)"  #addCatgForm= "ngForm">
     <div class="form-group mb-3">
@@ -22,9 +22,9 @@
     <select class="form-select" id="status" name="categoryColor"  ngModel  required >
        <option *ngFor="let color of colors, let i = index" [value]="color.color" [ngStyle] = "{'background': color.color}">
 
-        <div  class="col-sx-1"   >
+
           {{color.name}}
-             </div>
+
 
 
        </option>

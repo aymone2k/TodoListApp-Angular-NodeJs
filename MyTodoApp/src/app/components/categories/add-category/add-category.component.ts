@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category.model';
 import { Color } from 'src/app/models/color.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -12,7 +13,7 @@ import { COLORS } from 'src/assets/data/color-data';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit {
-
+  isLoading:boolean = false;
   category = new Category();
   colors: Color[] = COLORS;
   author: string ="";
@@ -20,7 +21,8 @@ export class AddCategoryComponent implements OnInit {
 my: string = "";
 
   constructor(private categoryService: CategoryService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.author = this.userService.author;
@@ -34,10 +36,19 @@ my: string = "";
     const categoryName = form.value['categoryName'];
     const categoryColor = form.value['categoryColor'];
     const author = this.author;
+   this.isLoading=true;
+    this.categoryService.addCategoryToServer(categoryName, categoryColor, author)
+    .then((data:any)=>{
+      window.alert(data.message);
+      this.isLoading=false;
+      this.router.navigate(["categories"])
+    })
+    .catch((err)=>{
+      this.isLoading= false;
+      window.alert(err.message);
+      this.router.navigate(["categories"])
+    })
 
-  // this.categoryService.addCategory(categoryName, categoryColor)
-    this.categoryService.addCategoryToServer(categoryName, categoryColor, author);
-  //voir pr affichage des messages alerte si catégorie existe ....
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -20,7 +21,7 @@ isLoading:boolean=false;
   todoSub !: Subscription;
     constructor(private todoService: TodoService,
                 private userService: UserService,
-                private categoryService: CategoryService,
+
                 ) { }
 
     ngOnInit(): void {
@@ -39,14 +40,14 @@ this.isLoading=true;
                               );
 
       this.author = this.userService.author;
-      //this.idCatg = this.todo.category
+
       this.todoService.getTodoFromServer(this.author);
-     // this.categoryService.getCategoryByIdToServer(this.idCatg);
-//revoir pour reccupe la catg
+
                             }
 
     ngOnDestroy(): void {
       this.todoSub.unsubscribe();
     }
+
 
   }

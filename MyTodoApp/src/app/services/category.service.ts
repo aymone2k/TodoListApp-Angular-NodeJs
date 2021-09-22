@@ -25,17 +25,6 @@ export class CategoryService {
 
 
 
-  addCategory(categoryName: string, categoryColor: string): void{
- /*   const category ={
-        categoryName: "",
-        categoryColor: "white",
-        };
-      category.categoryName = categoryName;
-      category.categoryColor = categoryColor;
-      this.categories.push(category);
-      this.emitCategories(); */
-   }
-
   addCategoryToServer(categoryName: string, categoryColor:string, author: string){
    return new Promise((resolve, reject)=>{
     const category ={
@@ -56,11 +45,13 @@ export class CategoryService {
             this.getCategoriesToServer(author);
             resolve(data)
           }else{
-            reject(data.message)
+            reject(data)
           }
          },
         (error)=>{
-          console.log('Erreur:'+error)}
+          reject(error.error);
+
+        }
       )
     this.emitCategories();
      })
@@ -78,7 +69,9 @@ export class CategoryService {
             console.log(data);
           }},
         (error)=>{
-          console.log("erreur:"+ error);},
+          console.log('Erreur:'+error.status, error.message)
+
+          },
       )
    }
 
@@ -86,26 +79,27 @@ export class CategoryService {
   getCategoryByIdToServer(id: string){
     return new Promise((resolve, reject)=>{
      this.httpClient
-     .get(this.api+'/categoryTodo/'+id)
+     .get(this.api+'/categoryTodo/cat/'+id)
      .subscribe(
         (data: Data)=>{
-          if(data.satus === 200){
             resolve(data.message)
-          }else{
-            reject(data.message);
-          }
-
         },
          (error)=>{
-          reject(error)
-         }
-     )
+          reject(error.error);
+         } )
         })
   }
 
-  onUpdateCatgToServer(id: string, category:Category){
+  onUpdateCatgToServer(id: string, categoryName: string, categoryColor:string, author: string){
     return new Promise((resolve, reject)=>{
-
+     const category ={
+        categoryName: "",
+        categoryColor: "white",
+        author:"",
+        };
+     category.categoryName = categoryName;
+     category.categoryColor = categoryColor;
+     category.author = author;
     this.httpClient
     .put(this.api+'/categoryTodo/'+id, category)
     .subscribe(
@@ -117,7 +111,7 @@ export class CategoryService {
           reject(data)
         }},
       (error)=>{
-        console.log('Erreur:'+error)}
+         reject(error.error);}
     )
   })
   //this.emitCategories();

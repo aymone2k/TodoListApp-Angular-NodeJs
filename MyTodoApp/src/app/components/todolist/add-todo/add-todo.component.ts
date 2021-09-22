@@ -33,13 +33,13 @@ export class AddTodoComponent implements OnInit {
     this.initForm();
     //reccupération des catégories enregistrées depuis le serveur
         this.categoriesSub = this.categoryService.categoriesSubject
-        .subscribe(
-          (value:any[])=>{
-            this.categories = value },
-          (error)=>{
-            console.log("une erreur: "+error)},
-          ()=>{
-            console.log('observable complété!')});
+                              .subscribe(
+                                (value:any[])=>{
+                                  this.categories = value },
+                                (error)=>{
+                                  console.log("une erreur: "+error)},
+                                ()=>{
+                                  console.log('observable complété!')});
         this.categoryService.emitCategories();
         this.categoryService.getCategoriesToServer(this.author);
 

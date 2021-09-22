@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { Todo } from '../models/todo.model';
+import { CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,12 @@ export class TodoService {
   today = new Date();
   todos: Todo[] = [];
   todoSubject = new Subject<Todo[]>();
+  todoName:string="";
+  todoCategory:string="";
+  todoDescription: string="";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private categoryService : CategoryService) { }
 
   emitTodos(){
     this.todoSubject.next(this.todos)
@@ -80,13 +85,11 @@ export class TodoService {
         .subscribe(
            (data: Data)=>{
               if(data.status === 200){
-                resolve(data.message)
+
+            resolve(data.message)
               }else{
                 reject(data.message);
               }
-        // this.todo = todoReccup,
-        // this.todoSubject.next(this.todo);;
-
         },
          (error)=>{
            reject(error)
@@ -97,7 +100,9 @@ export class TodoService {
 
   onUpdateTodoToServer(id: string, todo: Todo){
     return new Promise((resolve, reject)=>{
-      this.httpClient.put(this.api+'/todo/'+id, todo).subscribe(
+      this.httpClient.put(this.api+'/todo/'+id, todo)
+
+      .subscribe(
         (data: Data)=>{
           if(data.status === 200){
             //ajouter affichage du message server
@@ -112,7 +117,7 @@ export class TodoService {
     })
   }
 
-  onDeleteTodoToServer(id: string, todo: Todo, author:string){
+  onDeleteTodoToServer(id: string, author:string){
     return new Promise((resolve, reject)=>{
       this.httpClient.delete(this.api+'/todo/'+id).subscribe(
         ()=>{

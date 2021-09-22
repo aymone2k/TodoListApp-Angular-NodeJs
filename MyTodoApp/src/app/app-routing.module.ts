@@ -25,6 +25,7 @@ import { WelcomeComponent } from './view/welcome/welcome.component';
 const routes: Routes = [
 
   {path:'home', component: HomeComponent},
+
   {path:'welcome', component: WelcomeComponent},
   {path:'signin', component: SignInComponent},
   {path: 'signup', component: SignUpComponent},
