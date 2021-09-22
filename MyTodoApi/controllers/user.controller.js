@@ -55,7 +55,7 @@ module.exports={
 
       user.save()
         .then(() => res.status(201).json({ status: 201, message: 'Votre compte utilisateur a été créé' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de créer votre compte , veuillez essayer ultérieurement'}));
+        .catch(error => res.status(400).json({status:400, message: 'Impossible de créer votre compte , veuillez essayer ultérieurement'}));
     })
     .catch(error => res.status(500).json({message: error.message }));
          
@@ -122,7 +122,7 @@ module.exports={
             reset.save()
             .then(() =>
             res.status(201).json({ status: 201, message: 'Veuillez cliquer sur le lien reçu par mail, afin de réinitialiser votre mot de passe' }))
-            .catch(error => res.status(400).json({ message: 'Impossible de reinitialiser votre mot de passe , veuillez essayer ultérieurement'}));
+            .catch(error => res.status(400).json({status:400, message: 'Impossible de reinitialiser votre mot de passe , veuillez essayer ultérieurement'}));
                 
             }
             catch(err){res.status(500).json({message: err.message})}
@@ -151,7 +151,7 @@ module.exports={
 
                     user.save()
                     .then(()=>{
-                        res.status(200).json({message:'votre mdp a été mis à jour, vous pouvez vous connecter'})
+                        res.status(200).json({status: 200, message:'votre mdp a été mis à jour, vous pouvez vous connecter'})
                     })
                     .catch((err)=>{
                         res.status(401).json({message: err.message})

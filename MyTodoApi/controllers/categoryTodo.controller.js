@@ -32,7 +32,7 @@ module.exports={
             author: req.body.author,
             });
         categoryAdd.save()
-        .then((catg)=>{res.status(201).json({status: 201, message:`la categorie a été crée ${catg}` })})
+        .then((catg)=>{res.status(201).json({status: 201, message:`la categorie a été crée ${catg.categoryName}` })})
         .catch((err)=>{res.status(400).json({message: err.message})})
     }
     catch(err){res.status(500).json({message: err.message})};

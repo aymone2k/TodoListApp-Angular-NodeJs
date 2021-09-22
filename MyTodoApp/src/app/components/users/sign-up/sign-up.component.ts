@@ -12,8 +12,7 @@ import { MustMatch } from 'src/app/_helpers/must-match.validators';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  errorMessage!: string;
-  message!:string;
+
   signUpForm !: FormGroup;
   imagePreview: string ="";
   isLoading :boolean = false;
@@ -86,13 +85,13 @@ uploadImage(event: any){
       (data: any)=>{
         this.isLoading = false;
         console.log(data)
-        this.message = data.message
-         // this.router.navigate(["/signin"]);
+        window.alert(data.message);
+         this.router.navigate(["/signin"]);
       })
       .catch(
         (error)=>{
           this.isLoading =false;
-          this.errorMessage = error.message;
+          window.alert(error.message);
         }
       );
 

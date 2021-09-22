@@ -6,8 +6,7 @@
 <mat-spinner style="margin-bottom: 300px;" class="container text-center" *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
 <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
-  <div class="alert alert-success" *ngIf="message"> {{message}}, Veuillez vous connecter avec vos identifiants</div>
+
 <div class="mb-3 ">
   <label class="h6">Photo de profil: </label>
 

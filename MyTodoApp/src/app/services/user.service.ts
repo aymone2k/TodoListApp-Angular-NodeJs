@@ -62,7 +62,7 @@ initAuth(){
             }
               },
             (error)=>{
-              reject(error)
+              reject(error.error)
             }
           )
       })
@@ -166,14 +166,19 @@ updatePassword(password:string, token:string){
   return new Promise((resolve, reject)=>{
     this.httpClient.put(this.api+'/user/resetpassword/'+token, {password: password, token:token}).subscribe(
       (data:Data)=>{
-        if (data.status == 200){
+
+        if (data.status === 200){
           resolve(data.message);
+
         }else{
           reject(data);
+
         }
       },
       (err)=>{
-        reject(err);
+        reject(err.error);
+        console.log(err.error);
+
       }
     )
   })

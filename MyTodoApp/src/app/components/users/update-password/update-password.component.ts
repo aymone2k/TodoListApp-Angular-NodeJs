@@ -53,18 +53,18 @@ export class UpdatePasswordComponent implements OnInit {
    newUser.confirmPassword = this.updatePasswordForm.get('confirmPassword')?.value;
 
    this.userService.updatePassword(newUser.password, this.token)
-   .then(
-    (data:any)=>{
-      window.alert(data.message);
-      this.isLoading=false;
-      this.router.navigate(['/signin'])
-    })
- .catch(
-   (error)=>{
-   this.isLoading= false;
-   window.alert(error.message);
-   this.router.navigate(['/reset-password']);
- })
+        .then(
+          (data:any)=>{
+            window.alert(data);
+            this.isLoading=false;
+            this.router.navigate(['/signin'])
+          })
+      .catch(
+        (error)=>{
+        this.isLoading= false;
+        window.alert(error.message);
+        this.router.navigate(['/reset-password']);
+      })
   }
   toogleFieldText1(){
     this.fieldTextType1 =!this.fieldTextType1;
