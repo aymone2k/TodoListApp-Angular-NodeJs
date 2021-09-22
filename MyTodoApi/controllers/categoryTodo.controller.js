@@ -16,7 +16,7 @@ module.exports={
         const idCatg = req.params.id;
         CategoryTodo.findOne({_id: idCatg})
         .then((cat)=>{res.status(200).json({status:200, message:cat})})
-        .catch((err)=>{res.status(400).json({message: err.message})}) 
+        .catch((err)=>{res.status(400).json(err.message)}) 
     },
 
 //create categoryTodo
@@ -25,7 +25,7 @@ module.exports={
         try{
             const categoryExist = await CategoryTodo.exists({categoryName: req.body.categoryName})
         if(categoryExist){
-            return res.status(400).json({message: 'Impossible de créer une categorie qui existe déjà!'})
+            return res.status(400).json({status:400, message: 'Impossible de créer une categorie qui existe déjà!'})
         }
         const categoryAdd = new CategoryTodo({
             ...req.body, 
@@ -50,7 +50,7 @@ module.exports={
             if(err){
                 return res.status(500).json({message: err.message})
             }
-            return res.status(200).json({status:200, message: `la tache ${catg.categoryName} a été modifiée!`})
+            return res.status(200).json({status:200, message: `la tache a été modifiée!`})
         })
 
     },
