@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -6,6 +7,25 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const Reset = require('../models/resetPassword.model');
 var randomToken = require('random-token');
+
+
+// connection
+const conn = mongoose.createConnection(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// init gfs
+let gfs;
+conn.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "images"
+  });
+});
+
+
+
 
 //revoir pour rajouter image avatar
 module.exports={
@@ -48,7 +68,8 @@ module.exports={
         ...userObj,
         //image : `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}`,
         //image par défaut si pas d'image enregistrée
-        image : req.file ? `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}` : `${req.protocol}://${req.get('host')}/images/users/profil.jpg`,
+        //image : req.file ? `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}` : `${req.protocol}://${req.get('host')}/images/users/profil.jpg`,
+        image : req.file ? req.file.filename : `${req.protocol}://${req.get('host')}/images/users/profil.jpg`,
         password: hash
       });
 
@@ -67,23 +88,25 @@ module.exports={
 
 //UpdateUser
      updateUser : (req, res, next)=>{
-        const idUser= req.body.id
+        const userObj = JSON.parse(req.body.user)
+        delete userObj._id
+             
         User.findOne({_id: req.params.id})
         .then((user)=>{
-           
+         
             if(req.file){//modif de l'ancienne image si nouveau fichier image
-                const filename = user.image.split('/users/')[1];
-                fs.unlink(`images/users/${filename}`, ()=>{
-                  console.log('image supprimée:' +filename);
+                 const filename = user.image
+                 gfs.delete(filename, ()=>{
+                    console.log('image supprimée:' +filename);
                 })
               }
 
             const oldEmail = user.email;
 
-            user.name = req.body.name ? req.body.name : user.name;
-            user.email = req.body.email ? req.body.email : user.email;
-            user.image = req.file ? `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}` : user.image;
-
+            user.name = userObj.name ? userObj.name : user.name;
+            user.email = userObj.email ? userObj.email : user.email;
+           // user.image = req.file ? `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}` : user.image;
+            user.image = req.file ? req.file.filename : user.image;
             user.save()
             .then((user)=>{
                 if(oldEmail != user.email){
@@ -104,7 +127,7 @@ module.exports={
         //modification du mdp + renvoi d'un nouveau mdp par mail avec nodemailer
         try{
             const user = await User.findOne({email: req.body.email})
-            console.log(req.body)
+           // console.log(req.body)
             if(!user){
                 return res.status(401).json({status: 401, message: `identifiant inconnu`})
             }
@@ -168,7 +191,27 @@ module.exports={
                 res.status(500).json({message: err.message})
             }},
 
+//get imageUser
 
+        getImageUser: async (req, res, next)=>{
+            const filename = req.params.filename
+          
+                    gfs.find({filename})
+                        .toArray((err, files)=>{
+                            if(!files || files.length === 0){
+                                return res.status(400).json({err:"pas d'image"})
+                            }
+                            if(err){
+                                console.log(err);
+                                return res.status(400).json(err.message)
+                            }
+                           
+                            gfs.openDownloadStreamByName(filename).pipe(res.status(200));               
+                                          
+                        })
+                      
+              
+        }
 
 
 }

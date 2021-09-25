@@ -9,13 +9,16 @@ router.post('/signin', userController.signIn)
 //SignUp
 router.post('/signup', multerConfig, userController.signUp)
 //UpdateUser
-router.put('/:id',auth, multerConfig, userController.updateUser)
+router.put('/updateuser/:id',auth, multerConfig, userController.updateUser)
 
 //Forgot Password
 router.post('/forgotpassword', userController.resetPassword, sendRestMail)
 
 // Reset Password
 router.put('/resetpassword/:token', userController.putResetPassword);
+
+//get userImage
+router.get('/image/:filename', userController.getImageUser)
 
 
 module.exports = router; 

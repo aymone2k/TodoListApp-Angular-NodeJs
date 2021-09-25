@@ -88,7 +88,7 @@ export class TodoService {
 
             resolve(data.message)
               }else{
-                reject(data.message);
+                reject(data);
               }
         },
          (error)=>{

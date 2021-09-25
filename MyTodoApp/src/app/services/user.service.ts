@@ -5,12 +5,14 @@ import { Data, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+
 import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+file:string='';
   api = environment.api;
   token: string = '';
   user :string = '';
@@ -29,7 +31,7 @@ initAuth(){
   if(typeof localStorage !== "undefined"){
     const data = JSON.parse(localStorage.getItem('userLogin')||'{}');
     if(data){
-      console.log('data:', data);
+     // console.log('data:', data);
       if(data.id && data.token){
         this.userEmail = data.email;
         this.userImage = data.image;
@@ -68,6 +70,20 @@ initAuth(){
       })
     }
 
+//reccup de l'avatar
+getUserImage(fileName:string){
+  return new Promise((resolve, reject)=>{
+    this.httpClient.get(this.api+'/user/image/'+fileName)
+    .subscribe(
+      (data:any)=>{
+     console.log(data)
+     // resolve(this.file)
+      },
+      (err: any)=>{console.log(err)
+      resolve(err.url)},
+  )
+
+})}
 //mise à jour d'un user
   updateUserToServer(id: string, user: User, image: File|string){
     return new Promise((resolve, reject)=>{

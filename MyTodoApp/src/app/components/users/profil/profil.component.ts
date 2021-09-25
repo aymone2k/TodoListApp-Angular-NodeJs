@@ -7,7 +7,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-userImage!:string;
+userImage:any;
+image!:string;
 userEmail!:string;
 userName!:string;
 modifProfil : boolean=false;
@@ -15,8 +16,16 @@ modifProfil : boolean=false;
 
   ngOnInit(): void {
     this.userEmail=this.userService.userEmail;
-    this.userImage= this.userService.userImage;
+    this.image= this.userService.userImage;
+
     this.userName= this.userService.user;
+  this.userService.getUserImage(this.image)
+                      .then((file:any)=>{
+                        console.log(file)
+                      this.userImage=file;
+                      })
+                      .catch((err:any)=>{console.log("err:",err)})
+
   }
 
   OnModif(){
