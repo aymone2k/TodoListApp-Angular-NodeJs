@@ -1,3 +1,7 @@
+
+
 export const environment = {
-  production: true
+  production: true,
+  api: 'http://localhost:3000/api',//adresse du back à modif
+
 };
