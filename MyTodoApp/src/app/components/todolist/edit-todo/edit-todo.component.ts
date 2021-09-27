@@ -67,8 +67,7 @@ isLoading:boolean = false;
           this.categories = value },
         (error)=>{
           console.log("une erreur: "+error)},
-        ()=>{
-          console.log('observable complété!')});
+        );
       this.categoryService.emitCategories();
       this.categoryService.getCategoriesToServer(this.author);
   }

@@ -16,11 +16,12 @@ export class HeaderComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.user = this.userService.user;
     this.userService.isAuth$.subscribe(
       (bool: boolean)=>{
         this.isAuth = bool
       } )
-      this.user = this.userService.user
+
    }
 
   logout(){

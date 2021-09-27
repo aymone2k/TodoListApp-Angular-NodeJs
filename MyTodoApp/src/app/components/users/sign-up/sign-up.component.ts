@@ -59,7 +59,7 @@ uploadImage(event: any){
       reader.onload =()=>{
         if(this.signUpForm.get('image')?.valid){
           this.imagePreview = reader.result as string;
-          console.log(this.signUpForm.value.image)
+         // console.log(this.signUpForm.value.image)
         }else{
         this.imagePreview = "";
         }
@@ -84,7 +84,7 @@ uploadImage(event: any){
     .then(
       (data: any)=>{
         this.isLoading = false;
-        console.log(data)
+        //console.log(data)
         window.alert(data.message);
          this.router.navigate(["/signin"]);
       })

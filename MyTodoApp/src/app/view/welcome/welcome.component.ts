@@ -39,12 +39,12 @@ export class WelcomeComponent implements OnInit, OnDestroy {
                                 (todos: Todo[]) => {
                                   this.isLoading=false;
                                     this.todos = todos;
-                                    console.log(todos)
+                                   // console.log(todos)
                                     this.todoNumber = this.todos.length
 
                                     this.todoNumberTodo = this.todos.filter(todo=>todo.todoStatus==false).length
                                     this.todoNumberDone = this.todos.filter(todo=>todo.todoStatus==true).length
-                                    console.log(this.todoNumberTodo)
+                                    //console.log(this.todoNumberTodo)
                               },
                               (error)=> {
                                 this.isLoading = false;

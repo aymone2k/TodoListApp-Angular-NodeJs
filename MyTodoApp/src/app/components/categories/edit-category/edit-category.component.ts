@@ -53,12 +53,11 @@ isLoading:boolean = false;
                       .subscribe(
                         (value:any )=>{
                           this.category = value
-                          console.log(this.category)
+                         // console.log(this.category)
                         },
                         (error)=>{
                           console.log("une erreur: "+error)},
-                        ()=>{
-                          console.log('observable complété!')})
+                        )
 
     }
 

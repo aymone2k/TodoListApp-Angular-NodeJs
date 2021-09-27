@@ -21,7 +21,7 @@ modifProfil : boolean=false;
     this.userName= this.userService.user;
   this.userService.getUserImage(this.image)
                       .then((file:any)=>{
-                        console.log(file)
+                       // console.log(file)
                       this.userImage=file;
                       })
                       .catch((err:any)=>{console.log("err:",err)})

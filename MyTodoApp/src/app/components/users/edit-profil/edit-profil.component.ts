@@ -54,7 +54,7 @@ uploadImage(event: any){
       reader.onload =()=>{
         if(this.editProfilForm.get('image')?.valid){
           this.imagePreview = reader.result as string;
-          console.log(this.editProfilForm.value.image)
+        //  console.log(this.editProfilForm.value.image)
         }else{
         this.imagePreview = "";
         }
@@ -74,9 +74,9 @@ uploadImage(event: any){
     this.userService.updateUserToServer(this.idUser, newUser, this.editProfilForm.value.image)
     .then(
       (data: any)=>{
-        console.log(data)
+       console.log(data)
         this.message = data.message
-         // this.router.navigate(["/signin"]);
+       //   this.router.navigate(["/signin"]);
       })
       .catch(
         (error)=>{

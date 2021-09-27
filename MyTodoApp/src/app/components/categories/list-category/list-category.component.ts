@@ -35,8 +35,7 @@ this.isLoading=true;
                               (error)=>{
                                 this.isLoading=true;
                                 console.log("une erreur: "+error)},
-                              ()=>{
-                                console.log('observable complété!')});
+                             );
   this.author = this.userService.author;
       this.categoryService.emitCategories();
       this.categoryService.getCategoriesToServer(this.author);

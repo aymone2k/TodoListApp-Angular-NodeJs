@@ -112,7 +112,7 @@ module.exports={
                 if(oldEmail != user.email){
                     res.status(200).json({status: 200, message:`votre email a été modifié, veuillez vous reconnecter avec l'email: ${user.email}`})
                 }
-                res.status(200).json({status:200,  message: 'votre compte a été mis à jour'})
+                res.status(200).json({status:200,  message: 'votre compte a été mis à jour, vous allez etre redireger afin de vous connecter à nouveau'})
              })
             .catch((err)=> res.status(400).json({err:err.message}))
             })

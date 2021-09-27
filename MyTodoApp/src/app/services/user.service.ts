@@ -57,7 +57,7 @@ initAuth(){
           .subscribe(
 
             (signupData:Data)=>{
-              console.log(signupData)
+             // console.log(signupData)
               if(signupData.status === 201){
                 resolve(signupData)
 
@@ -76,10 +76,10 @@ getUserImage(fileName:string){
     this.httpClient.get(this.api+'/user/image/'+fileName)
     .subscribe(
       (data:any)=>{
-     console.log(data)
-     // resolve(this.file)
+     //console.log(data)
+
       },
-      (err: any)=>{console.log(err)
+      (err: any)=>{//console.log(err)
       resolve(err.url)},
   )
 
@@ -102,7 +102,8 @@ getUserImage(fileName:string){
             this.userEmail = data.email;
              this.author = data.id;
         this.userImage = data.image;
-        console.log('dataUpdate:', data);
+        //console.log('dataUpdate:', data);
+        window.alert(data.message);
             this.isAuth$.next(false);
           }else{
             reject(data);
@@ -128,7 +129,7 @@ getUserToServer(email:string, password: string){
         this.token = authData.token;
         this.author = authData.id;
         this.userImage = authData.image;
-        console.log('authdata:', authData);
+       // console.log('authdata:', authData);
         this.isAuth$.next(true);
         //save authData in localStorage
           if(typeof localStorage !== "undefined"){
@@ -166,7 +167,7 @@ sendResetPassword(email: string){
    .subscribe(
      (data)=>{
       resolve(data)
-      console.log(data)
+     // console.log(data)
      },
      (error)=>{
        console.log(error.message)

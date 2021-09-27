@@ -24,7 +24,7 @@ export class TodolistComponent implements OnInit, OnDestroy {
                                   this.todos = todos
                             },
                             (error)=> {console.log(error)},
-                            ()=>{console.log("Observable complété")}
+
                             )
                             this.todoService.emitTodos();
              }
