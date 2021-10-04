@@ -1,11 +1,16 @@
- # création d'une application todoList:
+ # Création d'une application todoList:
 =====================================
-Application todoList en Angular et NodeJs, 
+
+Application todoList en Angular et NodeJs, et MongoDB Atlas.
 l'utilisateur doit créer un compte s'il n'en a pas.
 il pourra se connecter pour afficher, modifier ou supprimer ses taches et la catégorie de ses taches.
 chaque tache est est reliée à une catégorie et un user.
 chaque catégorie est reliée à un utilisateur et une couleur.
 en cas d'oublie du mot de passe, un reset passord permettra se remplir un formulaire afin qu'il reçoive un password provisoire par mail(via nodemailer); 
+
+https://todo-list-2kalm.herokuapp.com/
+
+
 # coté front: 
 # ------------
 [Angular]
@@ -42,10 +47,6 @@ en cas d'oublie du mot de passe, un reset passord permettra se remplir un formul
         - User.model
         - Todo.model
         - Category.model
-
-
-
-
 
 
     
