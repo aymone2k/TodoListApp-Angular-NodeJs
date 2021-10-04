@@ -8,7 +8,7 @@ chaque tache est est reliée à une catégorie et un user.
 chaque catégorie est reliée à un utilisateur et une couleur.
 en cas d'oublie du mot de passe, un reset passord permettra se remplir un formulaire afin qu'il reçoive un password provisoire par mail(via nodemailer); 
 
-https://todo-list-2kalm.herokuapp.com/
+https://todo-list-2kalm.herokuapp.com/home
 
 
 # coté front: 
