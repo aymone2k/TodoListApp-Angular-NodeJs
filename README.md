@@ -2,13 +2,24 @@
 =====================================
 
 Application todoList en Angular et NodeJs, et MongoDB Atlas.
+
 l'utilisateur doit créer un compte s'il n'en a pas.
 il pourra se connecter pour afficher, modifier ou supprimer ses taches et la catégorie de ses taches.
 chaque tache est est reliée à une catégorie et un user.
 chaque catégorie est reliée à un utilisateur et une couleur.
 en cas d'oublie du mot de passe, un reset passord permettra se remplir un formulaire afin qu'il reçoive un password provisoire par mail(via nodemailer); 
 
+testez l'application ici:
+============================
 https://apptodo.iyoo.fr/
+
+l'hébergement:
+===============
+back-end hébergé sur heroku
+data base sur mongodb atlas
+front-end sur hostinger
+   - création et ajout d'un fichier htaccess pour les redirections et la réécriture des URL. 
+   - création et ajout d'un certificat ssl avec ZeroSSL pour le htpps
 
 
 # coté front: 
